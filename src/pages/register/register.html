@@ -1,0 +1,102 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>PELUQUERIAPP</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="center">
+    <ion-row>
+      <ion-col>
+        <h1>¡ESTÁS A UN PASO DE APROVECHARTE DE LAS MEJORES VENTAJAS!</h1>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div id="container">
+    <form #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-label>Nombre</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" required name="name" ngModel></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Apellidos</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" required name="lastname" ngModel></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Correo Electrónico</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="email" required name="email" ngModel></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Teléfono</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" required name="phone" ngModel></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-list radio-group>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Hombre</ion-label>
+              <ion-radio value="man" checked></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Mujer</ion-label>
+              <ion-radio value="woman"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button block large color="secondary" (click)="register(registerForm)" [disabled]="!registerForm.valid">
+            ¡Dame de alta!
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button block large color="warning" (click)="back()">
+            <ion-icon name="arrow-back"></ion-icon>
+            Volver
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>
