@@ -9,13 +9,21 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { LoginProvider } from '../providers/login/login';
+import { AdminHomePage } from '../pages/admin-home/admin-home';
+import { EmployeePage } from '../pages/employee/employee';
+import { ServicesPage } from '../pages/services/services';
+import { MeetingsPage } from '../pages/meetings/meetings';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    AdminHomePage,
+    EmployeePage,
+    ServicesPage,
+    MeetingsPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +34,11 @@ import { LoginProvider } from '../providers/login/login';
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    AdminHomePage,
+    EmployeePage,
+    ServicesPage,
+    MeetingsPage
   ],
   providers: [
     StatusBar,

@@ -1,9 +1,12 @@
 import { HomePage } from './../home/home';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { Page } from 'ionic-angular/umd/navigation/nav-util';
 import { RegisterPage } from '../register/register';
+import { AdminHomePage } from '../admin-home/admin-home';
+import { LoginProvider } from '../../providers/login/login';
+import { EmployeePage } from '../employee/employee';
 
 @Component({
   selector: 'page-login',
@@ -13,20 +16,33 @@ export class LoginPage {
 
   homePage: Page = HomePage;
   registerPage: Page = RegisterPage;
+  employeeHome: Page = EmployeePage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild('loginForm') loginForm: NgForm;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public loginProvider: LoginProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  ionViewDidEnter() {
+    this.loginProvider.user = undefined;
+    this.loginForm.form.pristine;
+    this.loginForm.form.reset();
   }
 
-  newCustomer(loginForm: NgForm){
+
+  register() {
     this.navCtrl.push(this.registerPage);
   }
 
-  login(loginForm: NgForm){
-    this.navCtrl.push(this.homePage);
+  login() {
+    let email: String = this.loginForm.form.value.email;
+    let password: String = this.loginForm.form.value.password;
+
+    this.loginProvider.login(email, password);
+    if (this.loginProvider.user != undefined && this.loginProvider.user != null) {
+      this.navCtrl.push(this.homePage);
+    }
   }
 
 }

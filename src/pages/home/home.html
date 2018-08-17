@@ -1,12 +1,20 @@
-<ion-header>
+<ion-menu [content]="contenido">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button ion-item (click)="loadPage(employeePage)">Gestión Empleado</button>
+      <button ion-item (click)="loadPage(servicesPage)">Gestión Servicios</button>
+      <button ion-item (click)="loadPage(meetingsPage)">Citas</button>
+      <button ion-item (click)="loadPage(loginPage)">Salir</button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-  <ion-navbar color="primary">
-    <ion-title>Bienvenido</ion-title>
-  </ion-navbar>
+<ion-nav [root]="employeePage" #contenido></ion-nav>
 
-</ion-header>
-
-
-<ion-content padding>
-Hola
-</ion-content>

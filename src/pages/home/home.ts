@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { LoginPage } from '../login/login';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, NavController, MenuController, NavParams } from 'ionic-angular';
+import { EmployeePage } from '../employee/employee';
+import { Page } from 'ionic-angular/umd/navigation/nav-util';
+import { MeetingsPage } from '../meetings/meetings';
+import { ServicesPage } from '../services/services';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +12,20 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  @ViewChild('contenido') contenido:NavController;
+  usuarioEstaConectado = true;
+  employeePage: Page = EmployeePage;
+  loginPage: Page = LoginPage;
+  servicesPage: Page = ServicesPage;
+  meetingsPage: Page = MeetingsPage;
 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  public menuCtrl: MenuController) {
+  }
+
+  loadPage(pagina){
+    this.contenido.setRoot(pagina);
+    this.menuCtrl.close();
   }
 
 }

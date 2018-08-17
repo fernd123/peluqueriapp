@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="primary" hideBackButton>
     <ion-title>PELUQUERIAPP</ion-title>
   </ion-navbar>
 
@@ -46,13 +46,13 @@
 
       <ion-row>
         <ion-col>
-          <button ion-button block large color="primary" (click)="newCustomer(loginForm)">
+          <button ion-button block large color="primary" (click)="register()">
             Registrarse
           </button>
         </ion-col>
 
         <ion-col>
-          <button ion-button block large color="secondary" (click)="login(loginForm)" [disabled]="!loginForm.valid">
+          <button ion-button block large color="secondary" (click)="login()" [disabled]="!loginForm.valid">
             Iniciar Sesión
           </button>
         </ion-col>
