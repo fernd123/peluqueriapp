@@ -1,3 +1,4 @@
+import { ManageServicesPage } from './../pages/services/manage-services/manage-services';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -14,6 +15,7 @@ import { ServicesPage } from '../pages/services/services';
 import { MeetingsPage } from '../pages/meetings/meetings';
 import { ManageEmployeePage } from '../pages/employee/manage-employee/manage-employee';
 import { EmployeePProvider } from '../providers/employee-p/employee-p';
+import { ServicePProvider } from '../providers/service-p/service-p';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { EmployeePProvider } from '../providers/employee-p/employee-p';
     EmployeePage,
     ServicesPage,
     MeetingsPage,
-    ManageEmployeePage
+    ManageEmployeePage,
+    ManageServicesPage
   ],
   imports: [
     BrowserModule,
@@ -39,14 +42,16 @@ import { EmployeePProvider } from '../providers/employee-p/employee-p';
     EmployeePage,
     ServicesPage,
     MeetingsPage,
-    ManageEmployeePage
+    ManageEmployeePage,
+    ManageServicesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
-    EmployeePProvider
+    EmployeePProvider,
+    ServicePProvider
   ]
 })
 export class AppModule {}

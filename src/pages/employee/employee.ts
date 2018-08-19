@@ -36,13 +36,13 @@ export class EmployeePage {
     console.log('Input: '+this.searchInput);
   }
 
-  public editEmployee(employee: User, index: number){
-    this.employeProvider.employeeSelected = employee;
+  public addEmployee(){
+    this.employeProvider.employeeSelected = undefined;
     this.navCtrl.push(this.addEmployeePage);
   }
 
-  public addEmployee(){
-    this.employeProvider.employeeSelected = undefined;
+  public editEmployee(employee: User, index: number){
+    this.employeProvider.employeeSelected = employee;
     this.navCtrl.push(this.addEmployeePage);
   }
 }

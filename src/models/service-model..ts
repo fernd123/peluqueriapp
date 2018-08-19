@@ -3,6 +3,6 @@ export class Service {
     name: String;
     description: String;
     duration: String;
-    pricelist_id: String;
+    pricelist_id: String; 
     genre: String;
 }

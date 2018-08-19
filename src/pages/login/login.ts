@@ -1,4 +1,3 @@
-import { HomePage } from './../home/home';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
@@ -6,6 +5,7 @@ import { Page } from 'ionic-angular/navigation/nav-util';
 import { RegisterPage } from '../register/register';
 import { LoginProvider } from '../../providers/login/login';
 import { EmployeePage } from '../employee/employee';
+import { HomePage } from './../home/home';
 
 @Component({
   selector: 'page-login',
