@@ -7,4 +7,5 @@ export class User {
     isCustomer: boolean;
     isAdmin: boolean;
     isEmployee: boolean;
+    password: String;
 }

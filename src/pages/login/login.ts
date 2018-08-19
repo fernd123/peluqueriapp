@@ -2,9 +2,8 @@ import { HomePage } from './../home/home';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
-import { Page } from 'ionic-angular/umd/navigation/nav-util';
+import { Page } from 'ionic-angular/navigation/nav-util';
 import { RegisterPage } from '../register/register';
-import { AdminHomePage } from '../admin-home/admin-home';
 import { LoginProvider } from '../../providers/login/login';
 import { EmployeePage } from '../employee/employee';
 

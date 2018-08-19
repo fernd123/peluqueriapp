@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="center">
+    <h1>{{title}}</h1>
+  </div>
+  <form #employeeForm="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-label>Nombre</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="text" required name="name" [(ngModel)]="employee.name"></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label>Apellidos</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="text" required name="lastname" [(ngModel)]="employee.lastname"></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label>Correo Electrónico</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="email" required name="email" [(ngModel)]="employee.email"></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label>Teléfono</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="text" required name="phone" [(ngModel)]="employee.phone"></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-list radio-group name="genre" [(ngModel)]="employee.genre">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Hombre</ion-label>
+            <ion-radio name="man" value="man" checked></ion-radio>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Mujer</ion-label>
+            <ion-radio name="woman" value="woman"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+    <ion-list radio-group name="isadmin" [(ngModel)]="employee.isadmin">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Usuario Administrador</ion-label>
+            <ion-radio value="isadmin"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-label>Contraseña</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="text" required name="password" [(ngModel)]="employee.password"></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block large color="secondary" (click)="addEmployee()" [disabled]="!employeeForm.valid">
+          {{action}}
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="action == 'Guardar Cambios'">
+      <ion-col>
+        <button ion-button block large color="danger" (click)="removeEmployee()">
+          <ion-icon name="trash"></ion-icon>
+          Eliminar Empleado
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block large color="warning" (click)="back()">
+          <ion-icon name="arrow-back"></ion-icon>
+          Volver
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-content>

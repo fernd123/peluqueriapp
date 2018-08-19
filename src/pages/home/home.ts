@@ -1,8 +1,8 @@
 import { LoginPage } from '../login/login';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, MenuController, NavParams } from 'ionic-angular';
+import { NavController, MenuController, NavParams } from 'ionic-angular';
 import { EmployeePage } from '../employee/employee';
-import { Page } from 'ionic-angular/umd/navigation/nav-util';
+import { Page } from 'ionic-angular/navigation/nav-util';
 import { MeetingsPage } from '../meetings/meetings';
 import { ServicesPage } from '../services/services';
 

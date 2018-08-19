@@ -10,5 +10,25 @@
 </ion-header>
 
 <ion-content padding>
-  HOLA
+
+    <ion-searchbar
+    [(ngModel)]="searchInput"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+
+  <div class="center">
+    <ion-card *ngFor="let employee of this.employeProvider.employeeList; let i = index" (click)="editEmployee(employee, i)">
+      <!-- <img [src]="restaurante.imagenes[0]"> -->
+      <div class="card-title">{{ employee.name }}</div>
+      <div class="card-subtitle">{{ employee.lastname }}</div>
+      <div class="card-subtitle">{{ employee.genre }}</div>
+    </ion-card>
+    <ion-fab bottom right>
+      <button ion-fab color="secondary" (click)="addEmployee()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
 </ion-content>

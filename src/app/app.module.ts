@@ -9,10 +9,11 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { LoginProvider } from '../providers/login/login';
-import { AdminHomePage } from '../pages/admin-home/admin-home';
 import { EmployeePage } from '../pages/employee/employee';
 import { ServicesPage } from '../pages/services/services';
 import { MeetingsPage } from '../pages/meetings/meetings';
+import { ManageEmployeePage } from '../pages/employee/manage-employee/manage-employee';
+import { EmployeePProvider } from '../providers/employee-p/employee-p';
 
 @NgModule({
   declarations: [
@@ -20,10 +21,10 @@ import { MeetingsPage } from '../pages/meetings/meetings';
     HomePage,
     LoginPage,
     RegisterPage,
-    AdminHomePage,
     EmployeePage,
     ServicesPage,
-    MeetingsPage
+    MeetingsPage,
+    ManageEmployeePage
   ],
   imports: [
     BrowserModule,
@@ -35,16 +36,17 @@ import { MeetingsPage } from '../pages/meetings/meetings';
     HomePage,
     LoginPage,
     RegisterPage,
-    AdminHomePage,
     EmployeePage,
     ServicesPage,
-    MeetingsPage
+    MeetingsPage,
+    ManageEmployeePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LoginProvider
+    LoginProvider,
+    EmployeePProvider
   ]
 })
 export class AppModule {}

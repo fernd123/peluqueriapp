@@ -15,7 +15,7 @@
   </div>
 
   <div id="container">
-    <form #registerForm="ngForm">
+    <form #registerForm="ngForm" (ngSubmit)="register()">
       <ion-row>
         <ion-col>
           <ion-label>Nombre</ion-label>
@@ -79,7 +79,7 @@
 
       <ion-row>
         <ion-col>
-          <button ion-button block large color="secondary" (click)="register(registerForm)" [disabled]="!registerForm.valid">
+          <button ion-button block large color="secondary" [disabled]="!registerForm.valid">
             ¡Dame de alta!
           </button>
         </ion-col>
