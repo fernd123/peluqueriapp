@@ -1,3 +1,4 @@
+import { CustomerMeetingPage } from './../pages/customer-meeting/customer-meeting';
 import { ManageServicesPage } from './../pages/services/manage-services/manage-services';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -27,7 +28,8 @@ import { ServicePProvider } from '../providers/service-p/service-p';
     ServicesPage,
     MeetingsPage,
     ManageEmployeePage,
-    ManageServicesPage
+    ManageServicesPage,
+    CustomerMeetingPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { ServicePProvider } from '../providers/service-p/service-p';
     ServicesPage,
     MeetingsPage,
     ManageEmployeePage,
-    ManageServicesPage
+    ManageServicesPage,
+    CustomerMeetingPage
   ],
   providers: [
     StatusBar,

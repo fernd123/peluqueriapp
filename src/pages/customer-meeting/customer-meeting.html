@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div id="container">
+    <div class="center">
+      <h1>{{title}}</h1>
+    </div>
+    <div>
+      <form #customerMeetingForm="ngForm">
+
+        <ion-label>Tipo de servicio</ion-label>
+        <ion-list radio-group name="genre" [(ngModel)]="genre" required>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-icon name="man" item-left></ion-icon>
+                <ion-radio name="men" value="men" (ionSelect)="getServicesByGenre()">Él
+                </ion-radio>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-icon name="woman" item-left></ion-icon>Ella
+                <ion-radio name="women" value="women" (ionSelect)="getServicesByGenre()"></ion-radio>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+
+
+        <ion-label>Servicio</ion-label>
+        <div class="div-input">
+          <ion-item>
+            <ion-label>Servicio</ion-label>
+            <ion-select name="service" [(ngModel)]="serviceModel" [disabled]="genre == undefined" required>
+              <ion-option *ngFor="let service of this.serviceList" [value]="service">{{service.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <ion-label>Fecha</ion-label>
+        <div class="div-input">
+          <ion-item>
+            <ion-label>Fecha</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" max="2030" name="date" [(ngModel)]="date" [disabled]="serviceModel == undefined"></ion-datetime>
+          </ion-item>
+        </div>
+
+        <ion-row>
+          <ion-col>
+            <button ion-button block large color="secondary" (click)="searchAvaiableMeetings()" [disabled]="!customerMeetingForm.valid">
+              <ion-icon name="search"></ion-icon>
+              Buscar Cita
+            </button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>
+  </div>
+
+</ion-content>

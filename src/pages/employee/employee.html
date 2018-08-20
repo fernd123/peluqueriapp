@@ -21,14 +21,18 @@
   <div class="center">
     <ion-card *ngFor="let employee of this.employeProvider.employeeList; let i = index" (click)="editEmployee(employee, i)">
       <!-- <img [src]="restaurante.imagenes[0]"> -->
-      <div class="card-title">{{ employee.name }}</div>
-      <div class="card-subtitle">{{ employee.lastname }}</div>
-      <div class="card-subtitle">{{ employee.genre }}</div>
+      <div class="card-title">Nombre: {{ employee.name }}</div>
+      <div class="card-subtitle">Apellido: {{ employee.lastname }}</div>
+      <div class="card-subtitle">Teléfono: {{ employee.phone }}</div>
+      <div class="card-subtitle">Email: {{ employee.email }}</div>
+      <div class="card-subtitle">Sexo: {{ employee.genre }}</div>
     </ion-card>
-    <ion-fab bottom right>
-      <button ion-fab color="secondary" (click)="addEmployee()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
   </div>
+
+  <ion-fab bottom right>
+    <button ion-fab color="secondary" (click)="addEmployee()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  
 </ion-content>

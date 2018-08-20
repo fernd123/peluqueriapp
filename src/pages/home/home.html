@@ -8,13 +8,14 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item (click)="loadPage(employeePage)">Gestión Empleado</button>
-      <button ion-item (click)="loadPage(servicesPage)">Gestión Servicios</button>
-      <button ion-item (click)="loadPage(meetingsPage)">Citas</button>
+      <button ion-item (click)="loadPage(employeePage)" *ngIf="loginProvider.user.isAdmin == true">Gestión Empleado</button>
+      <button ion-item (click)="loadPage(servicesPage)" *ngIf="loginProvider.user.isAdmin == true">Gestión Servicios</button>
+      <button ion-item (click)="loadPage(meetingsPage)" *ngIf="loginProvider.user.isAdmin == true">Citas</button>
+      <button ion-item (click)="loadPage(meetingsCustomerPage)" *ngIf="loginProvider.user.isCustomer == true">Reservar Cita</button>
+
       <button ion-item (click)="loadPage(loginPage)">Salir</button>
     </ion-list>
   </ion-content>
 </ion-menu>
 
-<ion-nav [root]="employeePage" #contenido></ion-nav>
-
+<ion-nav [root]="rootPage" #contenido></ion-nav>

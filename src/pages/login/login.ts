@@ -6,6 +6,7 @@ import { RegisterPage } from '../register/register';
 import { LoginProvider } from '../../providers/login/login';
 import { EmployeePage } from '../employee/employee';
 import { HomePage } from './../home/home';
+import { User } from '../../models/user-model';
 
 @Component({
   selector: 'page-login',
@@ -24,7 +25,7 @@ export class LoginPage {
   }
 
   ionViewDidEnter() {
-    this.loginProvider.user = undefined;
+    this.loginProvider.user = new User();
     this.loginForm.form.pristine;
     this.loginForm.form.reset();
   }

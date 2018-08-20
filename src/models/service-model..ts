@@ -2,7 +2,8 @@ export class Service {
     id: String;
     name: String;
     description: String;
-    duration: String;
+    duration: number;
     pricelist_id: String; 
     genre: String;
+    isActive: boolean = true; 
 }

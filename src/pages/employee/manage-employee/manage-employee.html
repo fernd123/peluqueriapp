@@ -58,34 +58,6 @@
       </ion-col>
     </ion-row>
 
-    <ion-list radio-group name="genre" [(ngModel)]="employee.genre">
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label>Hombre</ion-label>
-            <ion-radio name="man" value="man" checked></ion-radio>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-label>Mujer</ion-label>
-            <ion-radio name="woman" value="woman"></ion-radio>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-list>
-
-    <ion-list radio-group name="isadmin" [(ngModel)]="employee.isadmin">
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label>Usuario Administrador</ion-label>
-            <ion-radio value="isadmin"></ion-radio>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-list>
-
     <ion-row>
       <ion-col>
         <ion-label>Contraseña</ion-label>
@@ -94,6 +66,42 @@
             <ion-input type="text" required name="password" [(ngModel)]="employee.password"></ion-input>
           </ion-item>
         </div>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-list radio-group name="genre" [(ngModel)]="employee.genre">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Hombre</ion-label>
+            <ion-radio name="men" value="men" checked></ion-radio>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Mujer</ion-label>
+            <ion-radio name="women" value="women"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Usuario Administrador</ion-label>
+          <ion-checkbox name="isAdmin" value="true" [(ngModel)]="employee.isAdmin"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Usuario Activo</ion-label>
+          <ion-checkbox name="isActive" value="true" [(ngModel)]="employee.isActive"></ion-checkbox>
+        </ion-item>
       </ion-col>
     </ion-row>
 

@@ -9,7 +9,19 @@ export class EmployeePProvider {
   employeeSelected: User;
 
   constructor() {
-    console.log('Hello EmployeePProvider Provider');
+    for(let i=0; i<10; i++){
+      let employee: User = new User();
+      employee.name = "Peluquero "+i;
+      employee.lastname = "Apellido "+i;
+      employee.genre = (i % 2 == 0 ) ? "women" : "men";
+      employee.email = "email"+i+"@gmail.com";
+      employee.id = "id"+i;
+      employee.phone = "964-12-34-"+i+i;
+      employee.password = "123";
+      employee.isEmployee = true;
+      employee.isActive = true;
+      this.employeeList.push(employee);
+    }
   }
 
   addEmployee(employee: User): void {
