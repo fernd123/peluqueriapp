@@ -36,11 +36,12 @@ export class LoginPage {
   }
 
   login() {
-    let email: String = this.loginForm.form.value.email;
-    let password: String = this.loginForm.form.value.password;
+    let email: string = this.loginForm.form.value.email;
+    let password: string = this.loginForm.form.value.password;
 
     this.loginProvider.login(email, password);
-    if (this.loginProvider.user != undefined && this.loginProvider.user != null) {
+    debugger;
+    if (this.loginProvider.user != undefined && this.loginProvider.user != null && this.loginProvider.user.email != undefined) {
       this.navCtrl.push(this.homePage);
     }
   }

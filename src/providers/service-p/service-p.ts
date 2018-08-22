@@ -41,7 +41,7 @@ export class ServicePProvider {
       map(actions => actions.map(c => {
         return {key: c.payload.key, ...c.payload.val()};
       }))
-    );;
+    );
   }
 
 }

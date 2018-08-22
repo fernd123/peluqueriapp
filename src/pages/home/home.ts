@@ -7,6 +7,7 @@ import { EmployeePage } from '../employee/employee';
 import { Page } from 'ionic-angular/navigation/nav-util';
 import { MeetingsPage } from '../meetings/meetings';
 import { ServicesPage } from '../services/services';
+import { CompanyinfoPage } from '../companyinfo/companyinfo';
 
 @Component({
   selector: 'page-home',
@@ -16,6 +17,7 @@ export class HomePage {
 
   @ViewChild('contenido') contenido:NavController;
   usuarioEstaConectado = true;
+  companyPage: Page = CompanyinfoPage;
   employeePage: Page = EmployeePage;
   loginPage: Page = LoginPage;
   servicesPage: Page = ServicesPage;

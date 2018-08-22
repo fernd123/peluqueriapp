@@ -14,7 +14,7 @@ export class EmployeePProvider {
   employeeList: Observable<any[]>;
 
   constructor(public database: AngularFireDatabase) {
-    this.employeesRef = this.database.list('employee');
+    this.employeesRef = this.database.list('user');
     this.employeeList = this.employeesRef.snapshotChanges().pipe(
       map(actions => actions.map(c => {
         return {key: c.payload.key, ...c.payload.val()};

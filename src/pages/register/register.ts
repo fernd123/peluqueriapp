@@ -1,3 +1,4 @@
+import { LoginProvider } from './../../providers/login/login';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -9,7 +10,8 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  public loginProvider: LoginProvider) {
   }
 
   ionViewDidLoad() {
@@ -20,7 +22,7 @@ export class RegisterPage {
     this.navCtrl.pop();
   }
 
-  register(registerForm: NgForm){
-    console.log(registerForm);
+  register(){
+   this.loginProvider.register();
   }
 }

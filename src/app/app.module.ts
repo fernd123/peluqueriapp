@@ -20,6 +20,8 @@ import { ServicePProvider } from '../providers/service-p/service-p';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { CompanyinfoPage } from '../pages/companyinfo/companyinfo';
+import { CompanyPProvider } from '../providers/company-p/company-p';
 
 // Initialize Firebase
 var config = {
@@ -34,6 +36,7 @@ var config = {
 @NgModule({
   declarations: [
     MyApp,
+    CompanyinfoPage,
     HomePage,
     LoginPage,
     RegisterPage,
@@ -53,6 +56,7 @@ var config = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    CompanyinfoPage,
     HomePage,
     LoginPage,
     RegisterPage,
@@ -69,7 +73,8 @@ var config = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
     EmployeePProvider,
-    ServicePProvider
+    ServicePProvider,
+    CompanyPProvider
   ]
 })
 export class AppModule {}
