@@ -15,7 +15,7 @@
   </ion-searchbar>
 
   <div class="center">
-    <ion-card *ngFor="let service of this.serviceProvider.serviceList; let i = index" (click)="editService(service, i)">
+    <ion-card *ngFor="let service of this.serviceProvider.serviceList | async; let i = index" (click)="editService(service)">
       <!-- <img [src]="restaurante.imagenes[0]"> -->
       <div class="card-title">{{ service.name }}</div>
       <div class="card-subtitle">{{ service.description }}</div>

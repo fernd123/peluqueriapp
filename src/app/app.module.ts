@@ -18,6 +18,19 @@ import { ManageEmployeePage } from '../pages/employee/manage-employee/manage-emp
 import { EmployeePProvider } from '../providers/employee-p/employee-p';
 import { ServicePProvider } from '../providers/service-p/service-p';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyCt35KNelBpJ2WO2ZAS-8il_O5tPTKZcbY",
+  authDomain: "peluqueriapp-e82df.firebaseapp.com",
+  databaseURL: "https://peluqueriapp-e82df.firebaseio.com",
+  projectId: "peluqueriapp-e82df",
+  storageBucket: "peluqueriapp-e82df.appspot.com",
+  messagingSenderId: "566580695590"
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -33,7 +46,9 @@ import { ServicePProvider } from '../providers/service-p/service-p';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(config),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

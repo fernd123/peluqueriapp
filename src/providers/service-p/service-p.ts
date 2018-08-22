@@ -1,45 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Service } from '../../models/service-model.';
+import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ServicePProvider {
   serviceSelected: Service;
-  serviceList: Service[] = [];
-
-  constructor() {
-    console.log("Soy el provider del servicio");
-    for (let i = 0; i < 10; i++) {
-      let service: Service = new Service();
-      service.name = "Corte de pelo " + i;
-      service.description = "Descripción " + i;
-      service.genre = (i % 2 == 0) ? "women" : "men";
-      console.log(service.genre);
-      service.duration = i;
-      service.id = "id" + i;
-      this.serviceList.push(service);
-    }
+  
+  serviceRef: AngularFireList<any>;
+  serviceList: Observable<any[]>;
+  serviceByGenreList: Observable<{ key: string; }[]>;
+  
+  constructor(public database: AngularFireDatabase
+  ) {
+    this.serviceRef = this.database.list('service');
+    this.serviceList = this.serviceRef.snapshotChanges().pipe(
+      map(actions => actions.map(c => {
+        return {key: c.payload.key, ...c.payload.val()};
+      }))
+    );
   }
 
   addService(service: Service): void {
-    this.serviceList.push(service);
+    this.serviceRef.push(service);
   }
 
   editService(service: Service): void {
-    this.serviceList.push(service);
+    let key = service.key;
+    this.serviceRef.update(key, service);
   }
 
   removeService(service: Service): void {
-    this.serviceList.splice(0, 1);
+    let key = service.key;
+    this.serviceRef.remove(key);
   }
 
-  getServicesByGenre(genre: string): Service[] {
-    let serviceByGenreList: Service[] = [];
-    for (let i = 0; i < this.serviceList.length; i++) {
-      if (this.serviceList[i].genre == genre) {
-        serviceByGenreList.push(this.serviceList[i]);
-      }
-    }
-    return serviceByGenreList;
+  getServicesByGenre(genre: string): void {
+    this.serviceByGenreList = this.database.list('/service', ref => ref.orderByChild('genre').equalTo(genre)).snapshotChanges().pipe(
+      map(actions => actions.map(c => {
+        return {key: c.payload.key, ...c.payload.val()};
+      }))
+    );;
   }
 
 }

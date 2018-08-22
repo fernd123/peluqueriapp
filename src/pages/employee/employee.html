@@ -19,7 +19,7 @@
   </ion-searchbar>
 
   <div class="center">
-    <ion-card *ngFor="let employee of this.employeProvider.employeeList; let i = index" (click)="editEmployee(employee, i)">
+    <ion-card *ngFor="let employee of this.employeProvider.employeeList | async; let i = index" (click)="editEmployee(employee)">
       <!-- <img [src]="restaurante.imagenes[0]"> -->
       <div class="card-title">Nombre: {{ employee.name }}</div>
       <div class="card-subtitle">Apellido: {{ employee.lastname }}</div>

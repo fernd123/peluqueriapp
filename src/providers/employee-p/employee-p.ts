@@ -1,40 +1,40 @@
+import { LoadingController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user-model';
-
+import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class EmployeePProvider {
 
-  employeeList: User[] = [];
   employeeSelected: User;
 
-  constructor() {
-    for(let i=0; i<10; i++){
-      let employee: User = new User();
-      employee.name = "Peluquero "+i;
-      employee.lastname = "Apellido "+i;
-      employee.genre = (i % 2 == 0 ) ? "women" : "men";
-      employee.email = "email"+i+"@gmail.com";
-      employee.id = "id"+i;
-      employee.phone = "964-12-34-"+i+i;
-      employee.password = "123";
-      employee.isEmployee = true;
-      employee.isActive = true;
-      this.employeeList.push(employee);
-    }
+  employeesRef: AngularFireList<any>;
+  employeeList: Observable<any[]>;
+
+  constructor(public database: AngularFireDatabase) {
+    this.employeesRef = this.database.list('employee');
+    this.employeeList = this.employeesRef.snapshotChanges().pipe(
+      map(actions => actions.map(c => {
+        return {key: c.payload.key, ...c.payload.val()};
+      }))
+    );
   }
 
   addEmployee(employee: User): void {
-    this.employeeList.push(employee);
+    this.employeesRef.push(employee);
   }
 
-  //TODO: editar de verdad. No guardar uno nuevo
   editEmployee(employee: User): void {
-    this.employeeList.push(employee);
+    let key = employee.key;
+    this.employeesRef.update(key, employee);
   }
 
-  removeEmployee(): void {
-    this.employeeList.splice(0, 1);
+  removeEmployee(employee: User): void {
+    //this.employeeList.splice(0, 1);
+    let key = employee.key;
+    this.employeesRef.remove(key);
   }
 
 }

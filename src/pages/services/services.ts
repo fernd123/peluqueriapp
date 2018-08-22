@@ -39,7 +39,7 @@ export class ServicesPage {
     this.navCtrl.push(this.manageServicePage);
   }
 
-  public editService(service: Service, index: number){
+  public editService(service: Service){
     this.serviceProvider.serviceSelected = service;
     this.navCtrl.push(this.manageServicePage);
   }

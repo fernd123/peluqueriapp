@@ -14,7 +14,7 @@ export class ManageEmployeePage {
   employee: User = new User();
   employeeList: User[] = [];
   title: String;
-  action: String;
+  action: String; 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public employeProvider: EmployeePProvider) {
@@ -33,16 +33,17 @@ export class ManageEmployeePage {
   }
 
   addEmployee() {
-    if(this.action == 'Nuevo Empleado'){
+    if(this.action == 'Alta Empleado'){
       this.employeProvider.addEmployee(this.employee);
     }else{
+      debugger;
       this.employeProvider.editEmployee(this.employee);
     }
     this.navCtrl.pop();
   }
 
   removeEmployee(){
-    this.employeProvider.removeEmployee();
+    this.employeProvider.removeEmployee(this.employee);
     this.navCtrl.pop();
   }
 
