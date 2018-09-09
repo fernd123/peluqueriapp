@@ -31,7 +31,6 @@ export class ManageServicesPage {
   }
 
   addService() {
-    debugger;
     if(this.action == 'Alta Servicio'){
       this.serviceProvider.addService(this.service);
     }else{

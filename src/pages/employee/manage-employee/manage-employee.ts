@@ -36,7 +36,6 @@ export class ManageEmployeePage {
     if(this.action == 'Alta Empleado'){
       this.employeProvider.addEmployee(this.employee);
     }else{
-      debugger;
       this.employeProvider.editEmployee(this.employee);
     }
     this.navCtrl.pop();

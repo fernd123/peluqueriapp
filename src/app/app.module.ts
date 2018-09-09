@@ -1,3 +1,4 @@
+import { ManageCompanyPage } from './../pages/companyinfo/manage-company/manage-company';
 import { CustomerMeetingPage } from './../pages/customer-meeting/customer-meeting';
 import { ManageServicesPage } from './../pages/services/manage-services/manage-services';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,11 +18,11 @@ import { MeetingsPage } from '../pages/meetings/meetings';
 import { ManageEmployeePage } from '../pages/employee/manage-employee/manage-employee';
 import { EmployeePProvider } from '../providers/employee-p/employee-p';
 import { ServicePProvider } from '../providers/service-p/service-p';
+import { CompanyinfoPage } from '../pages/companyinfo/companyinfo';
+import { CompanyPProvider } from '../providers/company-p/company-p';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { CompanyinfoPage } from '../pages/companyinfo/companyinfo';
-import { CompanyPProvider } from '../providers/company-p/company-p';
 
 // Initialize Firebase
 var config = {
@@ -45,7 +46,8 @@ var config = {
     MeetingsPage,
     ManageEmployeePage,
     ManageServicesPage,
-    CustomerMeetingPage
+    CustomerMeetingPage,
+    ManageCompanyPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,9 @@ var config = {
     MeetingsPage,
     ManageEmployeePage,
     ManageServicesPage,
-    CustomerMeetingPage
+    CustomerMeetingPage,
+    ManageCompanyPage
+    
   ],
   providers: [
     StatusBar,

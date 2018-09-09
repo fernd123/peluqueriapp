@@ -1,5 +1,7 @@
 import { Company } from './../../models/company-model';
+import { LoadingController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
+import { User } from '../../models/user-model';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -7,12 +9,12 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class CompanyPProvider {
 
+  companyModel: Company;
   companyRef: AngularFireList<any>;
   companyList: Observable<any[]>;
-  companyModel: Company = new Company();
-  
-  constructor(public database: AngularFireDatabase
-  ) {
+  companySelected: Company;
+
+  constructor(public database: AngularFireDatabase) {
     this.companyRef = this.database.list('company');
     this.companyList = this.companyRef.snapshotChanges().pipe(
       map(actions => actions.map(c => {
@@ -20,13 +22,13 @@ export class CompanyPProvider {
       }))
     );
   }
-
-  saveCompany(company: Company): void {
-    let key = company.key;
+  
+  saveCompany(): void {
+    let key = this.companySelected.key;
     if(key != undefined){
-      this.companyRef.update(key, company);
+      this.companyRef.update(key, this.companySelected);
     }else{
-      this.companyRef.push(company);
+      this.companyRef.push(this.companySelected);
     }
   }
 

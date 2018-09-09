@@ -1,7 +1,12 @@
 export class Company {
     key: string;
     name: string;
-    initialHour: Date;
-    finalHour: string;
+    initialHourMorning: string;
+    finalHourMorning: string;
+    initalHourAfternoon: string;
+    finalHourAfternoon: string;
+    initialHourWeekend: string;
+    finalHourWeekend: string;
     phone: string;
+    info: string;
 }

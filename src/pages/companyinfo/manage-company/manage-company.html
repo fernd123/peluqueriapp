@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Datos Empresa</ion-title>
+  </ion-navbar>
+</ion-header>
+  
+
+<ion-content padding>
+    <div class="center">
+      <h1>{{title}}</h1>
+    </div>
+
+    <h3>Datos Generales</h3>
+      <ion-row>
+        <ion-col>
+          <ion-label>Nombre</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="name" [(ngModel)]="this.companyPProvider.companySelected.name" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Teléfono</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="phone" [(ngModel)]="this.companyPProvider.companySelected.phone" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Información</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="info" [(ngModel)]="this.companyPProvider.companySelected.info"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+  
+      <h3>Horario Mañanas</h3>
+      <ion-row>
+        <ion-col>
+          <ion-label>Hora Inicio</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="initialHourMorning" [(ngModel)]="this.companyPProvider.companySelected.initialHourMorning" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-label>Hora Fin</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="finalHourMorning" [(ngModel)]="this.companyPProvider.companySelected.finalHourMorning" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <h3>Horario Tardes</h3>
+      <ion-row>
+        <ion-col>
+          <ion-label>Hora Inicio</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="initialHourAfternoon" [(ngModel)]="this.companyPProvider.companySelected.initialHourAfternoon" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-label>Hora Fin</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="finalHourAfternoon" [(ngModel)]="this.companyPProvider.companySelected.finalHourAfternoon" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <h3>Horario Fin de Semana</h3>
+      <ion-row>
+        <ion-col>
+          <ion-label>Hora Inicio</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="initialHourWeekend" [(ngModel)]="this.companyPProvider.companySelected.initialHourWeekend"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-label>Hora Fin</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="text" name="finalHourWeekend" [(ngModel)]="this.companyPProvider.companySelected.finalHourWeekend"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <button ion-button block large color="secondary" (click)="saveCompany()">
+            Guardar
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button block large color="warning" (click)="back()">
+            <ion-icon name="arrow-back"></ion-icon>
+            Volver
+          </button>
+        </ion-col>
+      </ion-row>
+  
+  </ion-content>

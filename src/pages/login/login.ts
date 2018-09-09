@@ -40,7 +40,6 @@ export class LoginPage {
     let password: string = this.loginForm.form.value.password;
 
     this.loginProvider.login(email, password);
-    debugger;
     if (this.loginProvider.user != undefined && this.loginProvider.user != null && this.loginProvider.user.email != undefined) {
       this.navCtrl.push(this.homePage);
     }

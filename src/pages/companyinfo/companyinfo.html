@@ -1,71 +1,32 @@
 <ion-header>
-  <ion-navbar color="primary" hideBackButton>
-    <ion-buttons left>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Datos Empresa</ion-title>
-  </ion-navbar>
-</ion-header>
+    <ion-navbar color="primary" hideBackButton>
+      <ion-buttons left>
+        <button ion-button icon-only menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Gestión de Empresa</ion-title>
+    </ion-navbar>
+  </ion-header>
   
-
-<ion-content padding>
+  <ion-content padding>    
+  
     <div class="center">
-      <h1>{{title}}</h1>
+      <ion-card *ngFor="let company of this.companyPProvider.companyList | async; let i = index" (click)="editCompany(company)">
+        <!-- <img [src]="restaurante.imagenes[0]"> -->
+        <div class="card-title">Nombre: {{ company.name }}</div>
+        <div class="card-title">Teléfono: {{ company.phone }}</div>
+        <div class="card-title">Información: {{ company.info }}</div>
+        <div class="card-title">Horario Mañanas: {{ company.initialHourMorning }} - {{ company.finalHourMorning }}</div>
+        <div class="card-title">Horario Tardes: {{ company.initialHourAfternoon }} - {{ company.finalHourAfternoon }}</div>
+        <div class="card-title">Horario Fin de Semana: {{ company.initialHourWeekend }} - {{ company.finalHourWeekend }}</div>
+      </ion-card>
     </div>
-    <form #companyForm="ngForm">
-      <ion-row>
-        <ion-col>
-          <ion-label>Nombre</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="text" name="name" [(ngModel)]="company.name" required></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
   
-      <ion-row>
-        <ion-col>
-          <ion-label>Hora Inicio</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="text" name="initialhour" [(ngModel)]="company.initialhour" required></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <ion-label>Hora Fin</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="finalhour" name="finalhour" [(ngModel)]="company.finalhour" required></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <ion-label>Teléfono</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="text" required name="phone" [(ngModel)]="company.phone"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <button ion-button block large color="secondary" (click)="saveCompany()" [disabled]="!companyForm.valid">
-            Guardar
-          </button>
-        </ion-col>
-      </ion-row>
-  
-    </form>
+    <ion-fab bottom right>
+      <button ion-fab color="secondary" (click)="addCompany()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+     
   </ion-content>
