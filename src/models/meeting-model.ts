@@ -1,12 +1,12 @@
 export class Meeting {
-    id: String;
-    name: String;
-    serviceId: String;
-    employeeId: String;
-    pricelistIsd: String;
-    customerId: String;
+    key: string;
+    name: string;
+    serviceId: string;
+    employeeId: string;
+    pricelistIsd: string;
+    customerId: string;
     date: Date;
     initialHour: Date;
     finalHour: Date;
-    observations: String;
+    observations: string;
 }

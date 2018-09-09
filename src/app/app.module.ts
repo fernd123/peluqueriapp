@@ -23,6 +23,7 @@ import { CompanyPProvider } from '../providers/company-p/company-p';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { MeetingPProvider } from '../providers/meeting-p/meeting-p';
 
 // Initialize Firebase
 var config = {
@@ -78,7 +79,8 @@ var config = {
     LoginProvider,
     EmployeePProvider,
     ServicePProvider,
-    CompanyPProvider
+    CompanyPProvider,
+    MeetingPProvider
   ]
 })
 export class AppModule {}

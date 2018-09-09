@@ -28,7 +28,7 @@ export class LoginProvider {
     
     let user: User = new User();
     user.isAdmin = true;
-    user.isCustomer = false;
+    user.isCustomer = true;
     user.name = "Kobe";
     user.lastname = "Poe";
     user.email = "kobepoe@gmail.com";

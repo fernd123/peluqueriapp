@@ -23,10 +23,12 @@
       </ion-card>
     </div>
   
+    <div *ngIf="(this.companyPProvider.companyList| async)?.length==0">
     <ion-fab bottom right>
       <button ion-fab color="secondary" (click)="addCompany()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab>
+  </div>
      
   </ion-content>

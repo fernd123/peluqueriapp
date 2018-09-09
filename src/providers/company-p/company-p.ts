@@ -1,7 +1,5 @@
 import { Company } from './../../models/company-model';
-import { LoadingController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import { User } from '../../models/user-model';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
