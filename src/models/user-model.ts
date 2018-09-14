@@ -3,7 +3,7 @@ export class User {
     name: string;
     lastname: string;
     email: string;
-    phone: string;
+    phone: string; 
     genre: string;
     isCustomer: boolean = false;
     isAdmin: boolean = false;

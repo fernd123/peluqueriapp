@@ -1,4 +1,3 @@
-import { LoadingController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user-model';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
@@ -11,8 +10,7 @@ export class EmployeePProvider {
   employeeSelected: User;
   employeesRef: AngularFireList<any>;
   employeeList: Observable<any[]>;
-  companyRef: AngularFireList<any>;
-  companyList: Observable<any[]>;
+ 
   constructor(public database: AngularFireDatabase) {
     this.employeesRef = this.database.list('user');
     this.employeeList = this.employeesRef.snapshotChanges().pipe(
@@ -20,15 +18,6 @@ export class EmployeePProvider {
         return {key: c.payload.key, ...c.payload.val()};
       }))
     );
-
-    this.companyRef = this.database.list('company');
-    this.companyList = this.companyRef.snapshotChanges().pipe(
-      map(actions => actions.map(c => {
-        return {key: c.payload.key, ...c.payload.val()};
-      }))
-    );
-
-
   }
 
   addEmployee(employee: User): void {

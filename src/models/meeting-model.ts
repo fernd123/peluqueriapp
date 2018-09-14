@@ -6,7 +6,7 @@ export class Meeting {
     pricelistIsd: string;
     customerId: string;
     date: Date;
-    initialHour: Date;
-    finalHour: Date;
+   initialHour: number; //time in milis
+   finalHour: number; //time in milis
     observations: string;
 }

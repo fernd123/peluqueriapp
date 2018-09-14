@@ -5,7 +5,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, MenuController, NavParams } from 'ionic-angular';
 import { EmployeePage } from '../employee/employee';
 import { Page } from 'ionic-angular/navigation/nav-util';
-import { MeetingsPage } from '../meetings/meetings';
+import { MeetingPage } from '../meetings/meeting';
 import { ServicesPage } from '../services/services';
 import { CompanyinfoPage } from '../companyinfo/companyinfo';
 
@@ -21,7 +21,7 @@ export class HomePage {
   employeePage: Page = EmployeePage;
   loginPage: Page = LoginPage;
   servicesPage: Page = ServicesPage;
-  meetingsPage: Page = MeetingsPage;
+  meetingsPage: Page = MeetingPage;
   meetingsCustomerPage: Page = CustomerMeetingPage;
   rootPage: Page = undefined;
 

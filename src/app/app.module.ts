@@ -14,7 +14,7 @@ import { RegisterPage } from '../pages/register/register';
 import { LoginProvider } from '../providers/login/login';
 import { EmployeePage } from '../pages/employee/employee';
 import { ServicesPage } from '../pages/services/services';
-import { MeetingsPage } from '../pages/meetings/meetings';
+import { MeetingPage } from '../pages/meetings/meeting';
 import { ManageEmployeePage } from '../pages/employee/manage-employee/manage-employee';
 import { EmployeePProvider } from '../providers/employee-p/employee-p';
 import { ServicePProvider } from '../providers/service-p/service-p';
@@ -44,7 +44,7 @@ var config = {
     RegisterPage,
     EmployeePage,
     ServicesPage,
-    MeetingsPage,
+    MeetingPage,
     ManageEmployeePage,
     ManageServicesPage,
     CustomerMeetingPage,
@@ -65,7 +65,7 @@ var config = {
     RegisterPage,
     EmployeePage,
     ServicesPage,
-    MeetingsPage,
+    MeetingPage,
     ManageEmployeePage,
     ManageServicesPage,
     CustomerMeetingPage,

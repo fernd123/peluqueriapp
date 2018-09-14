@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-navbar color="primary" hideBackButton>
+      <ion-buttons left>
+        <button ion-button icon-only menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Gestión de Citas</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-row *ngIf="!showGenerateMeetingContent">
+      <ion-col>
+        <button ion-button block large color="secondary" (click)="generateMeeting()">
+          {{generateMeetingButtonTitle}}
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!showGenerateMeetingContent">
+        <ion-col>
+          <button ion-button block large color="secondary" (click)="searchMeeting()">
+            {{searchMeetingButtonTitle}}
+          </button>
+        </ion-col>
+      </ion-row>
+  
+    <ion-content *ngIf="showGenerateMeetingContent">
+      <ion-row>
+        <ion-col>
+          <ion-label>Fecha Desde</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="date" name="initialDate" [(ngModel)]="this.initialDateModel" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+  
+        <ion-col>
+          <ion-label>Fecha Hasta</ion-label>
+          <div>
+            <ion-item>
+              <ion-input type="date" name="finalDate" [(ngModel)]="this.initialFinalModel" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <button ion-button block large color="warning" (click)="showGenerateMeeting()">
+            <ion-icon name="arrow-back"></ion-icon>
+            Volver
+          </button>
+        </ion-col>
+  
+        <ion-col>
+          <button ion-button block large color="secondary" (click)="save()">
+            Generar Citas
+          </button>
+        </ion-col>
+      </ion-row>
+  
+    </ion-content>
+  </ion-content>
