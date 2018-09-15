@@ -1,7 +1,6 @@
 import { MeetingPProvider } from './../../providers/meeting-p/meeting-p';
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
-import { Page } from 'ionic-angular/navigation/nav-util';
+import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-meeting',
@@ -9,20 +8,23 @@ import { Page } from 'ionic-angular/navigation/nav-util';
 })
 export class MeetingPage {
 
-  addEmployeePage: Page = null;
-  shouldShowCancel: boolean = true;
-  searchInput: String; 
-  loading: Loading;
-
-  public initialDateModel: Date = new Date();
-  public finalDateModel: Date = new Date();
-
   public generateMeetingButtonTitle: String = "Generar Citas";
   public searchMeetingButtonTitle: String = "Buscar Cita";
+  public showAllMeetingButtonTitle: String = "Ver todas las citas";
+  
+  public searchInput: String; 
+  private loading: Loading;
+  
+  public initialDateModel: Date = new Date();
+  public finalDateModel: Date = new Date();
+  
+  public hideOptions: boolean = false;  
   public showGenerateMeetingContent: Boolean = false;
+  public showAllMeetingsContent: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public meetingPProvider: MeetingPProvider, public loadingCtrl: LoadingController){
+    public meetingPProvider: MeetingPProvider, public loadingCtrl: LoadingController,
+    private alertCtrl: AlertController){
       this.loading = this.loadingCtrl.create({
         content: 'Cargando...'
       });
@@ -36,14 +38,30 @@ export class MeetingPage {
 
   showGenerateMeeting(): void{
     this.showGenerateMeetingContent = !this.showGenerateMeetingContent;
+    this.hideOptions = true;
     if(this.showGenerateMeetingContent == false){
       this.initialDateModel = undefined;
       this.finalDateModel = undefined;
+      this.hideOptions = false;
+    }
+  }
+
+  showAllMeetings(): void{
+    this.showAllMeetingsContent = !this.showAllMeetingsContent;
+    this.hideOptions = true;
+    if(this.showAllMeetingsContent == false){
+      this.hideOptions = false;
     }
   }
 
   generateMeeting(): void{
     this.meetingPProvider.generateMeetings(this.initialDateModel, this.finalDateModel);
+    this.showGenerateMeeting();
+    let alert = this.alertCtrl.create({
+      title: 'Citas generadas correctamente',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   searchMeeting(): void{

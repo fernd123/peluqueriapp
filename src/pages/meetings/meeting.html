@@ -1,66 +1,99 @@
 <ion-header>
-    <ion-navbar color="primary" hideBackButton>
-      <ion-buttons left>
-        <button ion-button icon-only menuToggle>
-          <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary" hideBackButton>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Gestión de Citas</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row *ngIf="!hideOptions">
+    <ion-col>
+      <button ion-button block large color="light" (click)="showGenerateMeeting()">
+        {{generateMeetingButtonTitle}}
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!hideOptions">
+    <ion-col>
+      <button ion-button block large color="light" (click)="searchMeeting()">
+        {{searchMeetingButtonTitle}}
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!hideOptions">
+    <ion-col>
+      <button ion-button block large color="light" (click)="showAllMeetings()">
+        {{showAllMeetingButtonTitle}}
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <div *ngIf="showGenerateMeetingContent">
+    <ion-row>
+      <ion-col>
+        <ion-label>Fecha Desde</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="date" name="initialDate" [(ngModel)]="this.initialDateModel" required></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <ion-label>Fecha Hasta</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="date" name="finalDate" [(ngModel)]="this.finalDateModel" required></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block large color="warning" (click)="showGenerateMeeting()">
+          <ion-icon name="arrow-back"></ion-icon>
+          Volver
         </button>
-      </ion-buttons>
-      <ion-title>Gestión de Citas</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <ion-row *ngIf="!showGenerateMeetingContent">
+      </ion-col>
+
       <ion-col>
         <button ion-button block large color="secondary" (click)="generateMeeting()">
-          {{generateMeetingButtonTitle}}
+          Generar Citas
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+  <div *ngIf="showAllMeetingsContent">
+    <ion-row style="position: sticky; top: 0;
+    left: 100%;
+    right: 0;
+    z-index: 9999;">
+      <ion-col>
+        <button ion-button block large color="warning" (click)="showAllMeetings()">
+          Volver
         </button>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="!showGenerateMeetingContent">
-        <ion-col>
-          <button ion-button block large color="secondary" (click)="searchMeeting()">
-            {{searchMeetingButtonTitle}}
-          </button>
-        </ion-col>
-      </ion-row>
-  
-    <ion-content *ngIf="showGenerateMeetingContent">
-      <ion-row>
-        <ion-col>
-          <ion-label>Fecha Desde</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="date" name="initialDate" [(ngModel)]="this.initialDateModel" required></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-  
-        <ion-col>
-          <ion-label>Fecha Hasta</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="date" name="finalDate" [(ngModel)]="this.initialFinalModel" required></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <button ion-button block large color="warning" (click)="showGenerateMeeting()">
-            <ion-icon name="arrow-back"></ion-icon>
-            Volver
-          </button>
-        </ion-col>
-  
-        <ion-col>
-          <button ion-button block large color="secondary" (click)="save()">
-            Generar Citas
-          </button>
-        </ion-col>
-      </ion-row>
-  
-    </ion-content>
-  </ion-content>
+    <div>
+      <ion-card *ngFor="let meeting of this.meetingPProvider.meetingList | async; let i = index">
+        <div class="card-title">Fecha: {{meeting.date | date: 'dd/MM/yyyy'}}</div>
+        <div class="card-title">Hora inicio: {{meeting.initialHour | date :'HH:mm:ss'}} Hora Fin: {{meeting.finalHour |
+          date :'HH:mm:ss'}}</div>
+        <div class="card-title">Cliente: {{meeting.customerId}}</div>
+        <div class="card-title">Servicio: {{meeting.serviceId}}</div>
+        <div class="card-title">Cliente: {{meeting.employeeId}}</div>
+        <div class="card-title">Observaciones: {{meeting.observations}}</div>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

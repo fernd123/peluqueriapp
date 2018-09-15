@@ -1,6 +1,5 @@
 import { Meeting } from './../../models/meeting-model';
 import { Injectable } from '@angular/core';
-import { User } from '../../models/user-model';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,82 +7,93 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class MeetingPProvider {
 
-  employeeSelected: User;
-  employeesRef: AngularFireList<any>;
-  employeeList: Observable<any[]>;
+  meetingRef: AngularFireList<any>;
+  meetingList: Observable<any[]>;
+  meetingByDateList: Observable<any[]>;
+  meetingSelected: Meeting;
 
   constructor(public database: AngularFireDatabase) {
-    this.employeesRef = this.database.list('meeting');
-    this.employeeList = this.employeesRef.snapshotChanges().pipe(
+    this.meetingRef = this.database.list('meeting');
+    this.meetingList = this.meetingRef.snapshotChanges().pipe(
       map(actions => actions.map(c => {
-        return {key: c.payload.key, ...c.payload.val()};
+        return { key: c.payload.key, ...c.payload.val() };
       }))
     );
   }
 
-  addEmployee(employee: User): void {
-    this.employeesRef.push(employee);
-  }
-
-  editEmployee(employee: User): void {
-    let key = employee.key;
-    this.employeesRef.update(key, employee);
-  }
-
-  removeEmployee(employee: User): void {
-    //this.employeeList.splice(0, 1);
-    let key = employee.key;
-    this.employeesRef.remove(key);
-  }
-
-
-   // Entrada menu admin para generar citas manualmente
-   public generateMeetings(initialDate: Date, finalDate: Date): void {
+  // Entrada menu admin para generar citas manualmente
+  public generateMeetings(initialDate: Date, finalDate: Date): void {
     let date: Date = new Date();
-    //var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    //var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    var firstDay = new Date(initialDate);
-    var lastDay = new Date(finalDate);
+    let firstDay: Date = new Date(initialDate);
+    let lastDay: Date = new Date(finalDate);
 
-    var currentDate = firstDay;
+    let currentDate: Date = firstDay;
     currentDate.setHours(8);
     currentDate.setMinutes(0);
-    console.log(currentDate);
-    var currentHour = currentDate.getHours();
+    let currentHour: number = currentDate.getHours();
     let continue_ = true;
-    debugger;
-    while(continue_){
-      /* let user:User = new User();
-      user.name = "xample";
-      this.addEmployee(user); */
-     if (currentDate.getDay() != 0 && currentDate.getDay() != 6 ) { //Sunday
-        this.saveMeeting(currentDate, currentHour);
-      }else{
-        currentDate.setHours(currentDate.getHours()+ 24);
-      }
+
+    while (continue_) {
+      this.saveMeeting(currentDate, currentHour);
       console.log(currentDate);
       currentDate.setMinutes(currentDate.getMinutes() + 30);
-      if(currentDate.getUTCDate() == lastDay.getUTCDate()+1){
+      if (currentDate.getUTCDate() == lastDay.getUTCDate() + 1) {
         continue_ = false;
         console.log("fin");
       }
     }
-}
+  }
 
-private saveMeeting(currentDate: Date, currentHour: number): void {
-let meeting: Meeting = new Meeting();
-meeting.date = currentDate;
-meeting.initialHour = currentDate.getTime();
-let finalDate = new Date(currentDate);
-finalDate.setMinutes(finalDate.getMinutes() + 30);
-meeting.finalHour = finalDate.getTime();
+  private saveMeeting(currentDate: Date, currentHour: number): void {
+    let meeting: Meeting = new Meeting();
+    meeting.customerId = "";
+    meeting.employeeId = "";
+    meeting.observations = "";
+    meeting.pricelistIsd = "";
+    meeting.serviceId = "";
+    meeting.name = "";
+    debugger;
 
-//let key: string = meeting.key;
-//if (key != undefined) {
-//  this.meetingRef.update(key, this.meetingSelected);
-//} else {
-  this.employeesRef.push(meeting);
-//}
-}
+    let dateHourMinuteZero = new Date(currentDate);
+    dateHourMinuteZero.setHours(0);
+    dateHourMinuteZero.setMinutes(0);
+    dateHourMinuteZero.setSeconds(0);
+    dateHourMinuteZero.setMilliseconds(0);
+
+    meeting.date = dateHourMinuteZero.getTime();
+    meeting.initialHour = currentDate.getTime();
+
+    let finalDate = new Date(currentDate);
+    finalDate.setMinutes(finalDate.getMinutes() + 30);
+    meeting.finalHour = finalDate.getTime();
+
+    let key: string = meeting.key;
+    if (key != undefined) {
+      this.meetingRef.update(key, this.meetingSelected);
+    } else {
+      this.meetingRef.push(meeting);
+    }
+  }
+
+  deleteMeeting(key: string): void {
+    this.meetingRef.remove(key);
+  }
+  getMeetingByDate(date: Date): void {
+    let dateHourMinuteZero: Date = new Date(date);
+    dateHourMinuteZero.setHours(0);
+    dateHourMinuteZero.setMinutes(0);
+    dateHourMinuteZero.setSeconds(0);
+    dateHourMinuteZero.setMilliseconds(0);
+
+    this.meetingByDateList = this.database.list('meeting',
+      ref =>
+        ref.orderByChild('date')
+          .equalTo(dateHourMinuteZero.getTime()))
+      .snapshotChanges().pipe(
+        map(actions => actions.map(c => {
+          return { key: c.payload.key, ...c.payload.val() };
+        }))
+      );
+  }
 
 }

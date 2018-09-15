@@ -5,8 +5,8 @@ export class Meeting {
     employeeId: string;
     pricelistIsd: string;
     customerId: string;
-    date: Date;
-   initialHour: number; //time in milis
-   finalHour: number; //time in milis
+    date: number;
+    initialHour: number; //time in milis
+    finalHour: number; //time in milis
     observations: string;
 }

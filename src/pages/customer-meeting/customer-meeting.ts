@@ -1,9 +1,9 @@
+import { MeetingPProvider } from './../../providers/meeting-p/meeting-p';
 import { ServicePProvider } from './../../providers/service-p/service-p';
 import { Service } from './../../models/service-model.';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'page-customer-meeting',
@@ -14,11 +14,12 @@ export class CustomerMeetingPage {
   title: string = "Reservar Cita";
   serviceModel: Service =  undefined;
   genre: string = undefined;
-  date : Date = new Date();
+  public dateModel : Date = new Date();
+  showResult: boolean = false;
   serviceList: Service[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public serviceProvider: ServicePProvider) {
+  public serviceProvider: ServicePProvider, public meetingPProvider: MeetingPProvider) {
     
   }
 
@@ -32,7 +33,12 @@ export class CustomerMeetingPage {
   }
 
   searchAvaiableMeetings(){
+    this.showResult = true;
+    this.meetingPProvider.getMeetingByDate(this.dateModel);
+  }
 
+  back(): void{
+    this.showResult = false;
   }
 
 }
