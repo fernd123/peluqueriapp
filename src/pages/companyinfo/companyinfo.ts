@@ -21,7 +21,6 @@ export class CompanyinfoPage {
       content: 'Cargando...'
     });
     this.loading.present();
-    //console.log(this.companyProvider.companyModel);
   }
 
   ionViewDidLoad() {

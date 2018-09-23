@@ -8,16 +8,24 @@ import { map } from 'rxjs/operators';
 export class EmployeePProvider {
 
   employeeSelected: User;
+  userLoged: User = new User();
   employeesRef: AngularFireList<any>;
   employeeList: Observable<any[]>;
- 
+  userByEmail: Observable<any[]>;
+
   constructor(public database: AngularFireDatabase) {
+    console.log('Hello EmployeePProvider Provider');
     this.employeesRef = this.database.list('user');
     this.employeeList = this.employeesRef.snapshotChanges().pipe(
       map(actions => actions.map(c => {
-        return {key: c.payload.key, ...c.payload.val()};
+        return { key: c.payload.key, ...c.payload.val() };
       }))
     );
+  }
+
+
+  ngOnInit() {
+    this.employeesRef = this.database.list('/user');
   }
 
   addEmployee(employee: User): void {
@@ -33,6 +41,18 @@ export class EmployeePProvider {
     //this.employeeList.splice(0, 1);
     let key = employee.key;
     this.employeesRef.remove(key);
+  }
+
+  getUserByEmail(email: string, password: String) {
+    this.userByEmail = this.database.list('/user',
+      ref =>
+        ref.orderByChild('email')
+          .equalTo(email))
+      .snapshotChanges().pipe(
+        map(actions => actions.map(c => {
+          return { key: c.payload.key, ...c.payload.val() };
+        }))
+      );
   }
 
 }

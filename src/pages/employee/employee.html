@@ -11,28 +11,23 @@
 
 <ion-content padding>
 
-    <ion-searchbar
-    [(ngModel)]="searchInput"
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="onInput($event)"
+  <ion-searchbar [(ngModel)]="searchInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
     (ionCancel)="onCancel($event)">
   </ion-searchbar>
 
-  <div class="center">
-    <ion-card *ngFor="let employee of this.employeProvider.employeeList | async; let i = index" (click)="editEmployee(employee)">
-      <!-- <img [src]="restaurante.imagenes[0]"> -->
-      <div class="card-title">Nombre: {{ employee.name }}</div>
-      <div class="card-subtitle">Apellido: {{ employee.lastname }}</div>
-      <div class="card-subtitle">Teléfono: {{ employee.phone }}</div>
-      <div class="card-subtitle">Email: {{ employee.email }}</div>
-      <div class="card-subtitle">Sexo: {{ employee.genre }}</div>
-    </ion-card>
-  </div>
+  <ion-card *ngFor="let employee of this.employeProvider.employeeList | async; let i = index" (click)="editEmployee(employee)">
+    <ion-card-content>
+      <h1><b>{{ employee.name }} {{ employee.lastname }}</b></h1>
+      <div class="card-subtitle">Teléfono: <b>{{ employee.phone }}</b></div>
+      <div class="card-subtitle">Email: <b>{{ employee.email }}</b></div>
+      <div class="card-subtitle">Sexo: <b>{{ employee.genre }}</b></div>
+    </ion-card-content>
+  </ion-card>
 
   <ion-fab bottom right>
     <button ion-fab color="secondary" (click)="addEmployee()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-  
+
 </ion-content>

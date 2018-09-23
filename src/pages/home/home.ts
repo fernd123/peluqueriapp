@@ -1,3 +1,4 @@
+import { EmployeePProvider } from './../../providers/employee-p/employee-p';
 import { CustomerMeetingPage } from './../customer-meeting/customer-meeting';
 import { LoginProvider } from './../../providers/login/login';
 import { LoginPage } from '../login/login';
@@ -26,13 +27,13 @@ export class HomePage {
   rootPage: Page = undefined;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public menuCtrl: MenuController, public loginProvider: LoginProvider) {
-    if(loginProvider.user.isAdmin){
+  public menuCtrl: MenuController, public employeePProvider: EmployeePProvider) {
+    if(employeePProvider.userLoged.isAdmin){
       this.rootPage = this.employeePage;
-    }else if(loginProvider.user.isCustomer){
+    }else if(employeePProvider.userLoged.isCustomer){
       this.rootPage = this.meetingsCustomerPage;
-    }else if(loginProvider.user.isEmployee){
-      //TODO: crear vistas para empleados
+    }else if(employeePProvider.userLoged.isEmployee){
+      this.rootPage = this.employeePage;
     }
   }
 

@@ -11,23 +11,23 @@
 
 <ion-content padding>
 
-  <ion-searchbar [(ngModel)]="searchInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+  <ion-searchbar [(ngModel)]="searchInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
   </ion-searchbar>
 
-  <div class="center">
-    <ion-card *ngFor="let service of this.serviceProvider.serviceList | async; let i = index" (click)="editService(service)">
-      <!-- <img [src]="restaurante.imagenes[0]"> -->
-      <div class="card-title">{{ service.name }}</div>
-      <div class="card-subtitle">{{ service.description }}</div>
-      <div class="card-subtitle">Duración: {{ service.duration }}</div>
-      <div class="card-subtitle">Tipo: {{ service.genre }}</div>
-    </ion-card>
-  </div>
+  <ion-card *ngFor="let service of this.serviceProvider.serviceList | async; let i = index" (click)="editService(service)">
+    <ion-card-content>
+      <h1><b>{{ service.name }}</b></h1>
+      <div class="card-subtitle"><b><i>{{ service.description }}</i></b></div>
+      <div class="card-subtitle">Duración: <b>{{ service.duration }}</b></div>
+      <div class="card-subtitle">Tipo: <b>{{ service.genre }}</b></div>
+    </ion-card-content>
+  </ion-card>
 
   <ion-fab bottom right>
     <button ion-fab color="secondary" (click)="addService()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-  
+
 </ion-content>

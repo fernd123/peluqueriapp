@@ -8,11 +8,11 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item (click)="loadPage(companyPage)" *ngIf="loginProvider.user.isAdmin == true">Datos Empresa</button>
-      <button ion-item (click)="loadPage(employeePage)" *ngIf="loginProvider.user.isAdmin == true">Gestión Empleado</button>
-      <button ion-item (click)="loadPage(servicesPage)" *ngIf="loginProvider.user.isAdmin == true">Gestión Servicios</button>
-      <button ion-item (click)="loadPage(meetingsPage)" *ngIf="loginProvider.user.isAdmin == true">Citas</button>
-      <button ion-item (click)="loadPage(meetingsCustomerPage)" *ngIf="loginProvider.user.isCustomer == true">Reservar Cita</button>
+      <button ion-item (click)="loadPage(companyPage)" *ngIf="employeePProvider.userLoged.isAdmin == true">Datos Empresa</button>
+      <button ion-item (click)="loadPage(employeePage)" *ngIf="employeePProvider.userLoged.isAdmin == true">Gestión Empleado</button>
+      <button ion-item (click)="loadPage(servicesPage)" *ngIf="employeePProvider.userLoged.isAdmin == true">Gestión Servicios</button>
+      <button ion-item (click)="loadPage(meetingsPage)" *ngIf="employeePProvider.userLoged.isAdmin == true">Citas</button>
+      <button ion-item (click)="loadPage(meetingsCustomerPage)" *ngIf="employeePProvider.userLoged.isCustomer == true || employeePProvider.userLoged.isAdmin == true">Reservar Cita</button>
 
       <button ion-item (click)="loadPage(loginPage)">Salir</button>
     </ion-list>

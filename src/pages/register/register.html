@@ -60,7 +60,18 @@
         </ion-col>
       </ion-row>
 
-      <ion-list radio-group required>
+      <ion-row>
+          <ion-col>
+            <ion-label>Contraseña</ion-label>
+            <div>
+              <ion-item>
+                <ion-input type="text" required name="password" ngModel></ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      <ion-list radio-group name="genre" ngModel required>
         <ion-row>
           <ion-col>
             <ion-item>

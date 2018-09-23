@@ -35,7 +35,6 @@ export class MeetingPProvider {
 
     while (continue_) {
       this.saveMeeting(currentDate, currentHour);
-      console.log(currentDate);
       currentDate.setMinutes(currentDate.getMinutes() + 30);
       if (currentDate.getUTCDate() == lastDay.getUTCDate() + 1) {
         continue_ = false;
@@ -52,7 +51,6 @@ export class MeetingPProvider {
     meeting.pricelistIsd = "";
     meeting.serviceId = "";
     meeting.name = "";
-    debugger;
 
     let dateHourMinuteZero = new Date(currentDate);
     dateHourMinuteZero.setHours(0);

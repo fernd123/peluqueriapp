@@ -11,15 +11,18 @@
   
   <ion-content padding>    
   
-    <div class="center">
+    
+    <div>
       <ion-card *ngFor="let company of this.companyPProvider.companyList | async; let i = index" (click)="editCompany(company)">
-        <!-- <img [src]="restaurante.imagenes[0]"> -->
-        <div class="card-title">Nombre: {{ company.name }}</div>
-        <div class="card-title">Teléfono: {{ company.phone }}</div>
-        <div class="card-title">Información: {{ company.info }}</div>
-        <div class="card-title">Horario Mañanas: {{ company.initialHourMorning }} - {{ company.finalHourMorning }}</div>
-        <div class="card-title">Horario Tardes: {{ company.initialHourAfternoon }} - {{ company.finalHourAfternoon }}</div>
-        <div class="card-title">Horario Fin de Semana: {{ company.initialHourWeekend }} - {{ company.finalHourWeekend }}</div>
+        <img id="img" src="assets/imgs/avatar.png">
+        <ion-card-content>
+        <h1><b>{{ company.name }}</b></h1>
+        <div class="card-title">Teléfono: <b>{{ company.phone }}</b></div>
+        <div class="card-title">Información: <b>{{ company.info }}</b></div>
+        <div class="card-title">Horario Mañanas: <b>{{ company.initialHourMorning }} - {{ company.finalHourMorning }}</b></div>
+        <div class="card-title">Horario Tardes: <b>{{ company.initialHourAfternoon }} - {{ company.finalHourAfternoon }}</b></div>
+        <div class="card-title">Horario Fin de Semana: <b>{{ company.initialHourWeekend }} - {{ company.finalHourWeekend }}</b></div>
+        </ion-card-content>
       </ion-card>
     </div>
   
