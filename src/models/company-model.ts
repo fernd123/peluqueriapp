@@ -9,4 +9,5 @@ export class Company {
     finalHourWeekend: string;
     phone: string;
     info: string;
+    image: string;
 }

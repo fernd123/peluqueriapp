@@ -24,6 +24,8 @@ import { CompanyPProvider } from '../providers/company-p/company-p';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MeetingPProvider } from '../providers/meeting-p/meeting-p';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Camera } from '@ionic-native/camera';
 
 // Initialize Firebase
 var config = {
@@ -75,6 +77,8 @@ var config = {
   providers: [
     StatusBar,
     SplashScreen,
+    ImagePicker,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
     EmployeePProvider,
