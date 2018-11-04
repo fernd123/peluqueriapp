@@ -1,72 +1,29 @@
-import { Upload } from './../../models/upload-model';
-import { Company } from './../../models/company-model';
 import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Company } from './../../models/company-model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as firebase from 'firebase/app';
-import "firebase/storage";
+import { environment } from './../../environments/enviroment';
 
 @Injectable()
 export class CompanyPProvider {
 
-  companyModel: Company;
-  companyRef: AngularFireList<any>;
-  companyList: Observable<any[]>;
-  companySelected: Company;
+  public companySelected: Company;
+  public companyList: any = [];
+ 
+  private urlEndPoint: string = `${environment.urlEndPoint}/company`;
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  private basePath:string = '/uploads';
-  uploads: AngularFireList<Upload[]>;
+  constructor(private http: HttpClient) { }
 
-  constructor(public database: AngularFireDatabase) {
-    this.companyRef = this.database.list('company');
-    this.companyList = this.companyRef.snapshotChanges().pipe(
-      map(actions => actions.map(c => {
-        return {key: c.payload.key, ...c.payload.val()};
-      }))
-    );
-  }
-  
-  saveCompany(): void {
-    let key = this.companySelected.key;
-    if(key != undefined){
-      this.companyRef.update(key, this.companySelected);
+  saveCompany(): Observable<Company> {
+    if (this.companySelected.id == undefined){
+      return this.http.post<Company>(this.urlEndPoint, this.companySelected, { headers: this.httpHeaders });
     }else{
-      this.companyRef.push(this.companySelected);
+      return this.http.put<Company>(`${this.urlEndPoint}/${this.companySelected.id}`, this.companySelected, { headers: this.httpHeaders });
     }
   }
 
-
-  pushUpload(upload: Upload) {
-    let storageRef = firebase.storage().ref();
-    let uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
-
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
-        // upload in progress
-        //upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      },
-      (error) => {
-        // upload failed
-        console.log(error);
-        alert(error);
-      },
-      () => {
-        // upload success
-        this.companySelected.image = upload.url;
-        upload.url = uploadTask.snapshot.metadata.fullPath +'/'+ upload.file.name;
-        upload.name = upload.file.name;
-        this.saveFileData(upload);
-      }
-    );
+  getCompanies(): any {
+    return this.http.get<Observable<Company[]>>(`${this.urlEndPoint}`);
   }
-
-
-
-  // Writes the file details to the realtime db
-  private saveFileData(upload: Upload) {
-    this.database.list('uploads').push(upload);
-  }
-
-
 }

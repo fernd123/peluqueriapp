@@ -20,24 +20,6 @@
   <ion-row>
     <ion-col>
       <ion-label>Logo empresa</ion-label>
-
-      <!--
-      <div>
-        <button ion-button (click)="takePhoto(1)">Seleccionar Logo</button>
-      </div>
-      -->
-      <label>
-        <ion-input type="file" (change)="detectFiles($event)" class="custom-file-input"></ion-input>
-      </label>
-
-      <!--
-        <button ion-button [disabled]="!selectedFiles" (click)="uploadSingle()">
-        Upload Single
-      </button>
-      -->
-      Imagen seleccionada:
-      <img [src]="base64Image" *ngIf="base64Image" />
-
     </ion-col>
   </ion-row>
 
@@ -80,7 +62,17 @@
       <ion-label>Hora Inicio</ion-label>
       <div>
         <ion-item>
-          <ion-input type="text" name="initialHourMorning" [(ngModel)]="this.companyPProvider.companySelected.initialHourMorning"
+          <ion-input type="number" name="initialHourMorning" [(ngModel)]="this.companyPProvider.companySelected.initialHourMorning"
+            required></ion-input>
+        </ion-item>
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <ion-label>Minutos Inicio</ion-label>
+      <div>
+        <ion-item>
+          <ion-input type="number" name="initialMinuteHourMorning" [(ngModel)]="this.companyPProvider.companySelected.initialMinuteMorning"
             required></ion-input>
         </ion-item>
       </div>
@@ -92,11 +84,21 @@
       <ion-label>Hora Fin</ion-label>
       <div>
         <ion-item>
-          <ion-input type="text" name="finalHourMorning" [(ngModel)]="this.companyPProvider.companySelected.finalHourMorning"
+          <ion-input type="number" name="finalHourMorning" [(ngModel)]="this.companyPProvider.companySelected.finalHourMorning"
             required></ion-input>
         </ion-item>
       </div>
     </ion-col>
+
+    <ion-col>
+        <ion-label>Minutos Fin</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="number" name="finalMinuteMorning" [(ngModel)]="this.companyPProvider.companySelected.finalMinuteMorning"
+              required></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
   </ion-row>
 
   <h3>Horario Tardes</h3>
@@ -105,7 +107,17 @@
       <ion-label>Hora Inicio</ion-label>
       <div>
         <ion-item>
-          <ion-input type="text" name="initialHourAfternoon" [(ngModel)]="this.companyPProvider.companySelected.initialHourAfternoon"
+          <ion-input type="number" name="initialHourAfternoon" [(ngModel)]="this.companyPProvider.companySelected.initialHourAfternoon"
+            required></ion-input>
+        </ion-item>
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <ion-label>Minutos Fin</ion-label>
+      <div>
+        <ion-item>
+          <ion-input type="number" name="initialMinuteAfternoon" [(ngModel)]="this.companyPProvider.companySelected.initialMinuteAfternoon"
             required></ion-input>
         </ion-item>
       </div>
@@ -117,7 +129,17 @@
       <ion-label>Hora Fin</ion-label>
       <div>
         <ion-item>
-          <ion-input type="text" name="finalHourAfternoon" [(ngModel)]="this.companyPProvider.companySelected.finalHourAfternoon"
+          <ion-input type="number" name="finalHourAfternoon" [(ngModel)]="this.companyPProvider.companySelected.finalHourAfternoon"
+            required></ion-input>
+        </ion-item>
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <ion-label>Minutos Fin</ion-label>
+      <div>
+        <ion-item>
+          <ion-input type="number" name="finalMinuteAfternoon" [(ngModel)]="this.companyPProvider.companySelected.finalMinuteAfternoon"
             required></ion-input>
         </ion-item>
       </div>
@@ -130,7 +152,16 @@
       <ion-label>Hora Inicio</ion-label>
       <div>
         <ion-item>
-          <ion-input type="text" name="initialHourWeekend" [(ngModel)]="this.companyPProvider.companySelected.initialHourWeekend"></ion-input>
+          <ion-input type="number" name="initialHourWeekend" [(ngModel)]="this.companyPProvider.companySelected.initialHourWeekend"></ion-input>
+        </ion-item>
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <ion-label>Minutos Inicio</ion-label>
+      <div>
+        <ion-item>
+          <ion-input type="number" name="initialMinuteWeekend" [(ngModel)]="this.companyPProvider.companySelected.initialMinuteWeekend"></ion-input>
         </ion-item>
       </div>
     </ion-col>
@@ -141,9 +172,44 @@
       <ion-label>Hora Fin</ion-label>
       <div>
         <ion-item>
-          <ion-input type="text" name="finalHourWeekend" [(ngModel)]="this.companyPProvider.companySelected.finalHourWeekend"></ion-input>
+          <ion-input type="number" name="finalHourWeekend" [(ngModel)]="this.companyPProvider.companySelected.finalHourWeekend"></ion-input>
         </ion-item>
       </div>
+    </ion-col>
+
+    <ion-col>
+      <ion-label>Minutos Fin</ion-label>
+      <div>
+        <ion-item>
+          <ion-input type="number" name="finalMinuteWeekend" [(ngModel)]="this.companyPProvider.companySelected.finalMinuteWeekend"></ion-input>
+        </ion-item>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+        <ion-item>
+            <ion-label>Días de la semana no Laborables</ion-label>
+            <ion-select [(ngModel)]="this.companyPProvider.companySelected.noWorkingDays" multiple="true">
+              <ion-option>Lunes</ion-option>
+              <ion-option>Martes</ion-option>
+              <ion-option>Miércoles</ion-option>
+              <ion-option>Jueves</ion-option>
+              <ion-option>Viernes</ion-option>
+              <ion-option>Sábado</ion-option>
+              <ion-option>Domingo</ion-option>
+            </ion-select>
+          </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Empresa Activa</ion-label>
+        <ion-checkbox name="isActive" value="true" [(ngModel)]="this.companyPProvider.companySelected.isActive"></ion-checkbox>
+      </ion-item>
     </ion-col>
   </ion-row>
 
@@ -163,23 +229,4 @@
       </button>
     </ion-col>
   </ion-row>
-
-<!--
-  <label>
-    <input type="file" (change)="detectFiles($event)">
-  </label>
-
-  <button [disabled]="!selectedFiles" (click)="uploadSingle()">
-    Upload Single
-  </button>
-
-  <label>
-    <input type="file" (change)="detectFiles($event)" multiple>
-  </label>
-
-  <button [disabled]="!selectedFiles" (click)="uploadMulti()">
-
-    Upload Multiple
-  </button>
--->
 </ion-content>

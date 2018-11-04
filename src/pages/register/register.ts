@@ -1,10 +1,7 @@
 import { User } from './../../models/user-model';
-import { EmployeePProvider } from './../../providers/employee-p/employee-p';
-import { LoginProvider } from './../../providers/login/login';
-import { NgForm } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
+import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { UserProvider } from '../../providers/user-p/user-p';
 
 @Component({
   selector: 'page-register',
@@ -14,7 +11,8 @@ export class RegisterPage {
 
   @ViewChild('registerForm') registerForm;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public employeePProvider: EmployeePProvider) {
+    public alertCtrl: AlertController,
+    public userProvider: UserProvider) {
   }
 
   ionViewDidLoad() {
@@ -26,6 +24,7 @@ export class RegisterPage {
   }
 
   register() {
+    var self = this;
     let user: User = new User();
     user.isActive = true;
     user.isCustomer = true;
@@ -37,8 +36,18 @@ export class RegisterPage {
     user.password = this.registerForm.value.password;
     user.email = this.registerForm.value.email;
     user.genre = this.registerForm.value.genre;
-
-    this.employeePProvider.addEmployee(user);
-    this.back();
+    
+    this.userProvider.create(user, true).subscribe(function (response) {
+      console.log(response);
+      let alert = self.alertCtrl.create({
+        title: 'Usuario registrado con éxito',
+        buttons: ['OK']
+      });
+      alert.present();
+      self.back();
+    }, (function (error) { 
+      console.log(error);
+    }));
   }
+
 }

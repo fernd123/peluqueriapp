@@ -1,13 +1,21 @@
 export class Company {
-    key: string;
+    id: string;
     name: string;
-    initialHourMorning: string;
-    finalHourMorning: string;
-    initalHourAfternoon: string;
-    finalHourAfternoon: string;
-    initialHourWeekend: string;
-    finalHourWeekend: string;
+    initialHourMorning: number;
+    initialMinuteMorning: number;
+    finalHourMorning: number;
+    finalMinuteMorning: number;
+    initialHourAfternoon: number;
+    initialMinuteAfternoon: number;
+    finalHourAfternoon: number;
+    finalMinuteAfternoon: number;
+    initialHourWeekend: number;
+    initialMinuteWeekend: number;
+    finalHourWeekend: number;
+    finalMinuteWeekend: number;
+    noWorkingDays: Object;
     phone: string;
     info: string;
     image: string;
+    isActive: boolean = true;
 }

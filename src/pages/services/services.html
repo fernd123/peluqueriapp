@@ -15,12 +15,18 @@
     (ionCancel)="onCancel($event)">
   </ion-searchbar>
 
-  <ion-card *ngFor="let service of this.serviceProvider.serviceList | async; let i = index" (click)="editService(service)">
+  <ion-card *ngFor="let service of this.serviceProvider.serviceList" (click)="editService(service)">
     <ion-card-content>
       <h1><b>{{ service.name }}</b></h1>
       <div class="card-subtitle"><b><i>{{ service.description }}</i></b></div>
       <div class="card-subtitle">Duración: <b>{{ service.duration }}</b></div>
       <div class="card-subtitle">Tipo: <b>{{ service.genre }}</b></div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="this.serviceProvider.serviceList.length == 0 && !loadContent" class="background-red">
+    <ion-card-content>
+      <h1><b>No existen resultados</b></h1>
     </ion-card-content>
   </ion-card>
 

@@ -1,8 +1,9 @@
 export class Service {
-    key: string;
+    id: string;
     name: string;
     description: string;
     duration: number;
+    price: number;
     pricelist_id: string; 
     genre: string;
     isActive: boolean = true; 

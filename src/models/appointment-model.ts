@@ -1,12 +1,13 @@
-export class Meeting {
-    key: string;
+export class Appointment {
+    id: string;
     name: string;
+    companyId: string;
     serviceId: string;
     employeeId: string;
     pricelistIsd: string;
     customerId: string;
     date: number;
-    initialHour: number; //time in milis
-    finalHour: number; //time in milis
+    initialHour: number;
+    finalHour: number;
     observations: string;
 }

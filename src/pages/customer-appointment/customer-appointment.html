@@ -25,7 +25,7 @@
               <ion-item>
                 <ion-label>Hombre</ion-label>
                 <ion-icon name="man" item-left></ion-icon>
-                <ion-radio name="man" value="man" (ionSelect)="getServicesByGenre()">Él
+                <ion-radio name="man" value="Hombre" (ionSelect)="getServicesByGenre()">Él
                 </ion-radio>
               </ion-item>
             </ion-col>
@@ -34,7 +34,7 @@
               <ion-item>
                 <ion-label>Mujer</ion-label>
                 <ion-icon name="woman" item-left></ion-icon>Ella
-                <ion-radio name="woman" value="woman" (ionSelect)="getServicesByGenre()"></ion-radio>
+                <ion-radio name="woman" value="Mujer" (ionSelect)="getServicesByGenre()"></ion-radio>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -45,8 +45,9 @@
         <div class="div-input">
           <ion-item>
             <ion-label>Servicio</ion-label>
-            <ion-select name="service" [(ngModel)]="serviceModel" [disabled]="genre == undefined" required style="text-align: left; max-width: 100%">
-              <ion-option *ngFor="let service of this.serviceProvider.serviceByGenreList | async" [value]="service">{{service.name}}</ion-option>
+            <ion-select name="service" [(ngModel)]="serviceModel" [disabled]="genre == undefined" style="text-align: left; max-width: 100%"
+              required>
+              <ion-option *ngFor="let service of this.serviceList" [value]="service">{{service.name}}</ion-option>
             </ion-select>
           </ion-item>
         </div>
@@ -54,13 +55,14 @@
         <ion-label>Fecha</ion-label>
         <div class="div-input">
           <ion-item>
-            <ion-datetime displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="this.dateModel" required></ion-datetime>
+            <ion-datetime displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="this.dateModel" style="text-align: right; max-width: 100%"
+              required></ion-datetime>
           </ion-item>
         </div>
 
         <ion-row>
           <ion-col>
-            <button ion-button block large color="secondary" (click)="searchAvaiableMeetings()" [disabled]="!customerMeetingForm.valid">
+            <button ion-button block large color="secondary" (click)="searchAvaiableAppointments()" [disabled]="!customerMeetingForm.valid">
               <ion-icon name="search"></ion-icon>
               Buscar Cita
             </button>
@@ -72,31 +74,24 @@
 
   <div *ngIf="showResult">
 
-    <div *ngIf="(this.meetingPProvider.meetingByDateList | async)?.length!=0">
-      <ion-card *ngFor="let meeting of this.meetingPProvider.meetingByDateList | async; let i = index">
+    <div *ngIf="(this.avaiableAppointmentList)?.length!=0">
+      <ion-card *ngFor="let appointment of this.avaiableAppointmentList">
         <ion-card-content>
-          <h1><b>Fecha: {{meeting.date | date: 'dd/MM/yyyy'}}</b></h1>
-          <h2><b>{{meeting.initialHour | date :'HH:mm'}} -
-              {{meeting.finalHour |
-              date :'HH:mm:ss'}}</b></h2>
-          <div *ngIf="meeting.customerId != ''">
-            <div class="card-title">Cliente: {{meeting.customerId}}</div>
-            <div class="card-title">Servicio: {{meeting.serviceId}}</div>
-            <div class="card-title">Cliente: {{meeting.employeeId}}</div>
-            <div class="card-title">Observaciones: {{meeting.observations}}</div>
-          </div>
-
-          <div *ngIf="meeting.customerId == ''">
+          <h1><b>Fecha: {{appointment.date | date: 'dd/MM/yyyy'}}</b></h1>
+          <h2><b>{{appointment.initialHour == 0 ? '00' : appointment.initialHour}}:{{appointment.initialMinute == 0 ?
+              '00' : appointment.initialMinute}} -
+              {{appointment.finalHour == 0 ? '00' : appointment.finalHour}}:{{appointment.finalMinute == 0 ? '00' :
+              appointment.finalMinute}}</b></h2>
+          <div *ngIf="appointment.customerId == undefined">
             <b>
               <h1 style="color:green">LIBRE</h1>
             </b>
           </div>
-
         </ion-card-content>
       </ion-card>
     </div>
 
-    <div *ngIf="(this.meetingPProvider.meetingByDateList | async)?.length==0">
+    <div *ngIf="(this.avaiableAppointmentList)?.length==0">
       <ion-card style="background: firebrick; padding: 10px">
         <div class="center card-title">
           <h2 style="color:white">NO HAY NINGUNA CITA DISPONIBLE</h2>

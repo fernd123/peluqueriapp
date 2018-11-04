@@ -1,31 +1,35 @@
-import { ManageCompanyPage } from './../pages/companyinfo/manage-company/manage-company';
-import { CustomerMeetingPage } from './../pages/customer-meeting/customer-meeting';
-import { ManageServicesPage } from './../pages/services/manage-services/manage-services';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpClientModule } from '@angular/common/http';
 
+// Pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
-import { LoginProvider } from '../providers/login/login';
 import { EmployeePage } from '../pages/employee/employee';
 import { ServicesPage } from '../pages/services/services';
-import { MeetingPage } from '../pages/meetings/meeting';
 import { ManageEmployeePage } from '../pages/employee/manage-employee/manage-employee';
-import { EmployeePProvider } from '../providers/employee-p/employee-p';
-import { ServicePProvider } from '../providers/service-p/service-p';
 import { CompanyinfoPage } from '../pages/companyinfo/companyinfo';
+import { ManageCompanyPage } from './../pages/companyinfo/manage-company/manage-company';
+import { ManageServicesPage } from './../pages/services/manage-services/manage-services';
+import { AppointmentPage } from './../pages/appointment/appointment';
+import { CustomerAppointmentPage } from './../pages/customer-appointment/customer-appointment';
+
+// Providers
+import { LoginProvider } from '../providers/login/login';
+import { UserProvider } from './../providers/user-p/user-p';
 import { CompanyPProvider } from '../providers/company-p/company-p';
+import { ServicePProvider } from '../providers/service-p/service-p';
+import { AppointmentPProvider } from './../providers/appointment-p/appointment-p';
+
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { MeetingPProvider } from '../providers/meeting-p/meeting-p';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Camera } from '@ionic-native/camera';
+
 
 // Initialize Firebase
 var config = {
@@ -46,17 +50,18 @@ var config = {
     RegisterPage,
     EmployeePage,
     ServicesPage,
-    MeetingPage,
+    AppointmentPage,
     ManageEmployeePage,
     ManageServicesPage,
-    CustomerMeetingPage,
+    CustomerAppointmentPage,
     ManageCompanyPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(config),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -67,24 +72,22 @@ var config = {
     RegisterPage,
     EmployeePage,
     ServicesPage,
-    MeetingPage,
+    AppointmentPage,
     ManageEmployeePage,
     ManageServicesPage,
-    CustomerMeetingPage,
+    CustomerAppointmentPage,
     ManageCompanyPage
     
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    ImagePicker,
-    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
-    EmployeePProvider,
+    UserProvider,
     ServicePProvider,
     CompanyPProvider,
-    MeetingPProvider
+    AppointmentPProvider
   ]
 })
 export class AppModule {}

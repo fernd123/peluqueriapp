@@ -1,37 +1,42 @@
 <ion-header>
-    <ion-navbar color="primary" hideBackButton>
-      <ion-buttons left>
-        <button ion-button icon-only menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title>Gestión de Empresa</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>    
-  
-    
-    <div>
-      <ion-card *ngFor="let company of this.companyPProvider.companyList | async; let i = index" (click)="editCompany(company)">
-        <img id="img" src="assets/imgs/avatar.png">
-        <ion-card-content>
+  <ion-navbar color="primary" hideBackButton>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Gestión de Empresa</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <div>
+    <ion-card *ngFor="let company of this.companyPProvider.companyList" (click)="editCompany(company)">
+      <!-- <img id="img" src="assets/imgs/avatar.png"> -->
+      <ion-card-content>
         <h1><b>{{ company.name }}</b></h1>
+        <div class="card-title">Info: <i><b>{{ company.info }}</b></i></div>
         <div class="card-title">Teléfono: <b>{{ company.phone }}</b></div>
         <div class="card-title">Información: <b>{{ company.info }}</b></div>
-        <div class="card-title">Horario Mañanas: <b>{{ company.initialHourMorning }} - {{ company.finalHourMorning }}</b></div>
-        <div class="card-title">Horario Tardes: <b>{{ company.initialHourAfternoon }} - {{ company.finalHourAfternoon }}</b></div>
-        <div class="card-title">Horario Fin de Semana: <b>{{ company.initialHourWeekend }} - {{ company.finalHourWeekend }}</b></div>
-        </ion-card-content>
-      </ion-card>
-    </div>
-  
-    <div *ngIf="(this.companyPProvider.companyList| async)?.length==0">
-    <ion-fab bottom right>
-      <button ion-fab color="secondary" (click)="addCompany()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
+        <div class="card-title">Horario Mañanas: <b>{{ company.initialHourMorning }}:{{ company.initialMinuteMorning == 0 ? '00' : company.initialMinuteMorning }} - {{ company.finalHourMorning }}:{{ company.finalMinuteMorning == 0 ? '00' : company.finalMinuteMorning}}</b></div>
+        <div class="card-title">Horario Tardes: <b>{{ company.initialHourAfternoon }}:{{ company.initialMinuteAfternoon == 0 ? '00' : company.initialMinuteAfternoon }} - {{ company.finalHourAfternoon}}:{{ company.finalMinuteAfternoon == 0 ? '00' : company.finalMinuteAfternoon}}</b></div>
+        <div class="card-title">Horario Fin de Semana: <b>{{ company.initialHourWeekend }}:{{ company.initialMinuteWeekend == 0 ? '00' : company.initialMinuteWeekend}} - {{company.finalHourWeekend}}:{{company.finalMinuteWeekend == 0 ? '00' : company.finalMinuteWeekend}}</b></div>
+
+        <ion-card *ngIf="this.companyPProvider.companyList.length == 0" class="background-red">
+          <ion-card-content>
+            <h1><b>No existen resultados</b></h1>
+          </ion-card-content>
+        </ion-card>
+      </ion-card-content>
+    </ion-card>
   </div>
-     
-  </ion-content>
+
+  <ion-fab bottom right>
+    <button ion-fab color="secondary" (click)="addCompany()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

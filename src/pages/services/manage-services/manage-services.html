@@ -1,96 +1,110 @@
 <ion-header>
-    <ion-navbar color="primary">
-      <ion-buttons left>
-        <button ion-button icon-only menuToggle>
-          <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="center">
+    <h1>{{title}}</h1>
+  </div>
+  <form #serviceForm="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-label>Nombre</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="text" name="name" [(ngModel)]="this.serviceProvider.serviceSelected.name" required></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label>Descripción</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="text" name="description" [(ngModel)]="this.serviceProvider.serviceSelected.description"
+              required></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label>Duración</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="number" name="duration" [(ngModel)]="this.serviceProvider.serviceSelected.duration"
+              required></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label>Precio €</ion-label>
+        <div>
+          <ion-item>
+            <ion-input type="number" name="price" [(ngModel)]="this.serviceProvider.serviceSelected.price"
+              required></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-list radio-group name="genre" [(ngModel)]="this.serviceProvider.serviceSelected.genre" required>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Hombre</ion-label>
+            <ion-icon name="man" item-left></ion-icon>
+            <ion-radio name="man" value="Hombre" checked></ion-radio>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Mujer</ion-label>
+            <ion-icon name="woman" item-left></ion-icon>
+            <ion-radio name="woman" value="Mujer"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block large color="secondary" (click)="saveService()" [disabled]="!serviceForm.valid">
+          {{action}}
         </button>
-      </ion-buttons>
-      <ion-title>{{title}}</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <div class="center">
-      <h1>{{title}}</h1>
-    </div>
-    <form #serviceForm="ngForm">
-      <ion-row>
-        <ion-col>
-          <ion-label>Nombre</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="text" required name="name" [(ngModel)]="service.name"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <ion-label>Descripción</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="text" required name="description" [(ngModel)]="service.description"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <ion-label>Duración</ion-label>
-          <div>
-            <ion-item>
-              <ion-input type="number" required name="duration" [(ngModel)]="service.duration"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-  
-      <ion-list radio-group name="genre" [(ngModel)]="service.genre" required>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label>Hombre</ion-label>
-              <ion-icon name="man" item-left></ion-icon>
-              <ion-radio name="man" value="man" checked></ion-radio>
-            </ion-item>
-          </ion-col>
-          <ion-col>
-            <ion-item>
-              <ion-label>Mujer</ion-label>
-              <ion-icon name="woman" item-left></ion-icon>
-              <ion-radio name="woman" value="woman"></ion-radio>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-list>
-  
-      <ion-row>
-        <ion-col>
-          <button ion-button block large color="secondary" (click)="addService()" [disabled]="!serviceForm.valid">
-            {{action}}
-          </button>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row *ngIf="action == 'Guardar Cambios'">
-        <ion-col>
-          <button ion-button block large color="danger" (click)="removeService()">
-            <ion-icon name="trash"></ion-icon>
-            Eliminar Servicio
-          </button>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <button ion-button block large color="warning" (click)="back()">
-            <ion-icon name="arrow-back"></ion-icon>
-            Volver
-          </button>
-        </ion-col>
-      </ion-row>
-  
-    </form>
-  </ion-content>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="this.serviceProvider.serviceSelected.id != undefined">
+      <ion-col>
+        <button ion-button block large color="danger" (click)="removeService()">
+          <ion-icon name="trash"></ion-icon>
+          Eliminar Servicio
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block large color="warning" (click)="back()">
+          <ion-icon name="arrow-back"></ion-icon>
+          Volver
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-content>

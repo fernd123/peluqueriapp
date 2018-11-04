@@ -1,47 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Service } from '../../models/service-model.';
-import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Service } from '../../models/service-model.';
+import { environment } from './../../environments/enviroment';
+
 
 @Injectable()
 export class ServicePProvider {
-  serviceSelected: Service;
   
-  serviceRef: AngularFireList<any>;
-  serviceList: Observable<any[]>;
-  serviceByGenreList: Observable<{ key: string; }[]>;
-  
-  constructor(public database: AngularFireDatabase
-  ) {
-    this.serviceRef = this.database.list('service');
-    this.serviceList = this.serviceRef.snapshotChanges().pipe(
-      map(actions => actions.map(c => {
-        return {key: c.payload.key, ...c.payload.val()};
-      }))
-    );
+  public serviceSelected: Service;
+  public serviceList: any = [];
+
+  private urlEndPoint: string = `${environment.urlEndPoint}/services`;
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  constructor(private http: HttpClient) { }
+
+  saveService(): Observable<Service> {
+    if (this.serviceSelected.id == undefined) {
+      return this.http.post<Service>(this.urlEndPoint, this.serviceSelected, { headers: this.httpHeaders });
+    } else {
+      return this.http.put<Service>(`${this.urlEndPoint}/${this.serviceSelected.id}`, this.serviceSelected, { headers: this.httpHeaders });
+    }
   }
 
-  addService(service: Service): void {
-    this.serviceRef.push(service);
+  getServices(): any {
+    return this.http.get<Observable<Service[]>>(`${this.urlEndPoint}`);
   }
 
-  editService(service: Service): void {
-    let key = service.key;
-    this.serviceRef.update(key, service);
+  delete(): Observable<Service> {
+    return this.http.delete<Service>(`${this.urlEndPoint}/${this.serviceSelected.id}`, { headers: this.httpHeaders });
   }
 
-  removeService(service: Service): void {
-    let key = service.key;
-    this.serviceRef.remove(key);
+  getServicesByGenre(genre: string): any {
+    return this.http.get<Observable<Service[]>>(`${this.urlEndPoint}/?genre=${genre}`);
   }
 
-  getServicesByGenre(genre: string): void {
-    this.serviceByGenreList = this.database.list('/service', ref => ref.orderByChild('genre').equalTo(genre)).snapshotChanges().pipe(
-      map(actions => actions.map(c => {
-        return {key: c.payload.key, ...c.payload.val()};
-      }))
-    );
+  getServicesByValue(value: String): any {
+    let self = this;
+    if (value.length == 0) {
+      this.getServices().subscribe(function (services) {
+        self.serviceList = services;
+      });
+    } else {
+      this.http.get<Observable<Service[]>>(`${this.urlEndPoint}?value=${value}`).subscribe(function (services) {
+        self.serviceList = services;
+      });
+    }
   }
 
 }

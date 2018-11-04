@@ -3,7 +3,8 @@ import { NavController, NavParams, LoadingController, Loading } from 'ionic-angu
 import { Page } from 'ionic-angular/navigation/nav-util';
 import { User } from '../../models/user-model';
 import { ManageEmployeePage } from './manage-employee/manage-employee';
-import { EmployeePProvider } from '../../providers/employee-p/employee-p';
+import { UserProvider } from './../../providers/user-p/user-p';
+import { environment } from '../../environments/enviroment';
 
 
 
@@ -15,37 +16,58 @@ export class EmployeePage {
 
   addEmployeePage: Page = ManageEmployeePage;
   shouldShowCancel: boolean = true;
-  searchInput: String; 
+  searchInput: String;
   loading: Loading;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public employeProvider: EmployeePProvider, public loadingCtrl: LoadingController){
-      this.loading = this.loadingCtrl.create({
-        content: 'Cargando...'
-      });
-      this.loading.present();
+    public userProvider: UserProvider, public loadingCtrl: LoadingController) { }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter EmployeePage');
+    let self = this;
+    this.showLoading();
+    this.userProvider.userSelected = undefined;
+
+    this.userProvider.getEmployees().subscribe(function (employees) {
+      self.userProvider.employeeList = employees;
+      self.loading.dismiss();
+    });
+    if (this.searchInput != undefined && this.searchInput.length != 0) {
+      this.userProvider.getEmpoyeesByValue(this.searchInput);
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EmployeePage');
-    this.loading.dismiss();
   }
 
-  public onInput($event){
-    console.log('Input: '+this.searchInput);
+
+  public onInput($event) {
+    console.log('Input: ' + this.searchInput);
+    this.userProvider.getEmpoyeesByValue(this.searchInput);
   }
 
-  public onCancel($event){
-    console.log('Input: '+this.searchInput);
+  public onCancel($event) {
+    console.log('Input: ' + this.searchInput);
+    let self = this;
+    this.userProvider.getEmployees().subscribe(function (employees) {
+      self.userProvider.employeeList = employees;
+    });
   }
 
-  public addEmployee(){
-    this.employeProvider.employeeSelected = undefined;
+  public addEmployee() {
     this.navCtrl.push(this.addEmployeePage);
   }
 
-  public editEmployee(employee: User){
-    this.employeProvider.employeeSelected = employee;
+  public editEmployee(employee: User) {
+    this.userProvider.userSelected = employee;
     this.navCtrl.push(this.addEmployeePage);
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: environment.loading
+    });
+    this.loading.present();
   }
 }

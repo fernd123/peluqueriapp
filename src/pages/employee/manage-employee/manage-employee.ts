@@ -1,7 +1,8 @@
+import { environment } from './../../../environments/enviroment';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { User } from '../../../models/user-model';
-import { EmployeePProvider } from '../../../providers/employee-p/employee-p';
+import { UserProvider } from './../../../providers/user-p/user-p';
 
 
 @Component({
@@ -14,40 +15,62 @@ export class ManageEmployeePage {
   employee: User = new User();
   employeeList: User[] = [];
   title: String;
-  action: String; 
+  action: String;
+  save: String = environment.save;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public employeProvider: EmployeePProvider) {
+    public userProvider: UserProvider, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
-    let employeeSelected = this.employeProvider.employeeSelected;
-    if(employeeSelected != undefined && employeeSelected != null){
-      this.title = `Editar Empleado: ${employeeSelected.name} ${employeeSelected.lastname}`;
-      this.action = "Guardar Cambios";
-      this.employee = this.employeProvider.employeeSelected;
-    }else{
-      this.title = "Nuevo Empleado";
-      this.action = "Alta Empleado";
+    let employeeSelected = this.userProvider.userSelected;
+    if (employeeSelected != undefined && employeeSelected != null) {
+      this.title = environment.editEmployeeTitle + ` ${employeeSelected.name} ${employeeSelected.lastname}`;
+      this.action = environment.save;
+      this.employee = this.userProvider.userSelected;
+    } else {
+      this.title = environment.newEmployeeTitle;
+      this.action = environment.newEmployeeAction;
     }
   }
 
   addEmployee() {
-    if(this.action == 'Alta Empleado'){
-      this.employeProvider.addEmployee(this.employee);
-    }else{
-      this.employeProvider.editEmployee(this.employee);
+    this.employee.isEmployee = true;
+    let self = this;
+    if (this.userProvider.userSelected == undefined) {
+      this.userProvider.create(this.employee, true).subscribe(response => {
+        let alert = this.alertCtrl.create({
+          title: environment.successEmployeeCreated,
+          buttons: [environment.ok]
+        });
+        alert.present();
+        self.navCtrl.pop();
+      });
+    } else {
+      this.userProvider.create(this.employee, false).subscribe(response => {
+        let alert = this.alertCtrl.create({
+          title: environment.successEmployeeUpdated,
+          buttons: [environment.ok]
+        });
+        alert.present();
+        self.navCtrl.pop();
+      });
     }
-    this.navCtrl.pop();
   }
 
-  removeEmployee(){
-    this.employeProvider.removeEmployee(this.employee);
-    this.navCtrl.pop();
+  removeEmployee() {
+    this.userProvider.delete(this.employee.id).subscribe(response => {
+      let alert = this.alertCtrl.create({
+        title: environment.successEmployeeRemoved,
+        buttons: [environment.ok]
+      });
+      alert.present();
+      this.navCtrl.pop();
+    });
   }
 
   back() {
+    this.userProvider.userSelected = undefined;
     this.navCtrl.pop();
   }
-
 }

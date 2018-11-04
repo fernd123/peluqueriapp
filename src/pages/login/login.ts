@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Alert, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { Page } from 'ionic-angular/navigation/nav-util';
 import { RegisterPage } from '../register/register';
-import { LoginProvider } from '../../providers/login/login';
 import { EmployeePage } from '../employee/employee';
 import { HomePage } from './../home/home';
 import { User } from '../../models/user-model';
-import { EmployeePProvider } from '../../providers/employee-p/employee-p';
+import { UserProvider } from './../../providers/user-p/user-p';
+import { environment } from '../../environments/enviroment';
 
 @Component({
   selector: 'page-login',
@@ -19,18 +19,19 @@ export class LoginPage {
   registerPage: Page = RegisterPage;
   employeeHome: Page = EmployeePage;
 
+  loading: Loading;
+
   @ViewChild('loginForm') loginForm: NgForm;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public employePProvider: EmployeePProvider, public alertCtrl: AlertController) {
+    public userProvider: UserProvider, public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewDidEnter() {
-    this.employePProvider.userLoged = new User();
     this.loginForm.form.pristine;
     this.loginForm.form.reset();
   }
-
 
   register() {
     this.navCtrl.push(this.registerPage);
@@ -39,25 +40,32 @@ export class LoginPage {
   login() {
     let email: string = this.loginForm.form.value.email;
     let password: string = this.loginForm.form.value.password;
+    var self = this;
+    this.showLoading();
 
-    this.employePProvider.getUserByEmail(email, password);
-    this.employePProvider.userByEmail.forEach(user => {
-      for (let i = 0; i < user.length; i++) {
-        if (user[i].password == password) {
-          this.employePProvider.userLoged = user[i];
+    this.userProvider.getUserByEmailAndPassword(email, password)
+      .subscribe(cliente => {
+        self.loading.dismiss();
+        self.userProvider.userLoged = cliente;
+
+        if (this.userProvider.userLoged == undefined) {
+          self.userProvider.userLoged = new User();
+          let alert = this.alertCtrl.create({
+            title: environment.incorrectcredentials,
+            buttons: [environment.ok]
+          });
+          alert.present();
+        }else{
           this.navCtrl.push(this.homePage);
         }
-      }
+      }); 
+  }
 
-      if(this.employePProvider.userLoged.name == undefined){
-        let alert = this.alertCtrl.create({
-          title: 'Usuario y/o contraseña incorrecto(s)',
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-      
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: environment.loading
     });
+    this.loading.present();
   }
 
 }

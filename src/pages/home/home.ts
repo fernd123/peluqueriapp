@@ -1,14 +1,14 @@
-import { EmployeePProvider } from './../../providers/employee-p/employee-p';
-import { CustomerMeetingPage } from './../customer-meeting/customer-meeting';
-import { LoginProvider } from './../../providers/login/login';
-import { LoginPage } from '../login/login';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, MenuController, NavParams } from 'ionic-angular';
+import { AppointmentPage } from './../appointment/appointment';
+import { CustomerAppointmentPage } from './../customer-appointment/customer-appointment';
+import { LoginPage } from '../login/login';
 import { EmployeePage } from '../employee/employee';
 import { Page } from 'ionic-angular/navigation/nav-util';
-import { MeetingPage } from '../meetings/meeting';
 import { ServicesPage } from '../services/services';
 import { CompanyinfoPage } from '../companyinfo/companyinfo';
+import { UserProvider } from './../../providers/user-p/user-p';
+
 
 @Component({
   selector: 'page-home',
@@ -16,30 +16,29 @@ import { CompanyinfoPage } from '../companyinfo/companyinfo';
 })
 export class HomePage {
 
-  @ViewChild('contenido') contenido:NavController;
+  @ViewChild('contenido') contenido: NavController;
   usuarioEstaConectado = true;
   companyPage: Page = CompanyinfoPage;
   employeePage: Page = EmployeePage;
   loginPage: Page = LoginPage;
   servicesPage: Page = ServicesPage;
-  meetingsPage: Page = MeetingPage;
-  meetingsCustomerPage: Page = CustomerMeetingPage;
+  appointmentPage: Page = AppointmentPage;
+  appintmentCustomerPage: Page = CustomerAppointmentPage;
   rootPage: Page = undefined;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public menuCtrl: MenuController, public employeePProvider: EmployeePProvider) {
-    if(employeePProvider.userLoged.isAdmin){
+    public menuCtrl: MenuController, public userProvider: UserProvider) {
+    if (userProvider.userLoged.isAdmin) {
       this.rootPage = this.employeePage;
-    }else if(employeePProvider.userLoged.isCustomer){
-      this.rootPage = this.meetingsCustomerPage;
-    }else if(employeePProvider.userLoged.isEmployee){
+    } else if (userProvider.userLoged.isCustomer) {
+      this.rootPage = this.appintmentCustomerPage;
+    } else if (userProvider.userLoged.isEmployee) {
       this.rootPage = this.employeePage;
     }
   }
 
-  loadPage(pagina){
+  loadPage(pagina) {
     this.contenido.setRoot(pagina);
     this.menuCtrl.close();
   }
-
 }

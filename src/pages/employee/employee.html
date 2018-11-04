@@ -15,12 +15,18 @@
     (ionCancel)="onCancel($event)">
   </ion-searchbar>
 
-  <ion-card *ngFor="let employee of this.employeProvider.employeeList | async; let i = index" (click)="editEmployee(employee)">
+  <ion-card *ngFor="let employee of this.userProvider.employeeList" (click)="editEmployee(employee)">
     <ion-card-content>
       <h1><b>{{ employee.name }} {{ employee.lastname }}</b></h1>
       <div class="card-subtitle">Teléfono: <b>{{ employee.phone }}</b></div>
       <div class="card-subtitle">Email: <b>{{ employee.email }}</b></div>
       <div class="card-subtitle">Sexo: <b>{{ employee.genre }}</b></div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="this.userProvider.employeeList.length == 0" class="background-red">
+    <ion-card-content>
+      <h1><b>No existen resultados</b></h1>
     </ion-card-content>
   </ion-card>
 
