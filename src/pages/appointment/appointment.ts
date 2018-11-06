@@ -71,12 +71,15 @@ export class AppointmentPage {
 
   generateAppointment(): void {
     let self = this;
+    this.showGeneratingAppointments();
     this.appointmentPProvider.generateAppointment(this.company, this.initialDateModel, this.finalDateModel, this.excludeNoWorkingDays).subscribe(function (res) {
+      self.loading.dismiss();
       let alert = self.alertCtrl.create({
         title: environment.successAppointmentGenerated,
         buttons: [environment.ok]
       });
       alert.present();
+      self.showGenerateMeeting();
     });
   }
 
@@ -86,7 +89,14 @@ export class AppointmentPage {
 
   private showLoading(): void {
     this.loading = this.loadingCtrl.create({
-      content: 'Cargando...'
+      content: environment.loading
+    });
+    this.loading.present();
+  }
+
+  private showGeneratingAppointments() :void {
+    this.loading = this.loadingCtrl.create({
+      content: environment.generatingAppointments
     });
     this.loading.present();
   }

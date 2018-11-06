@@ -8,7 +8,6 @@ import { Service } from '../../models/service-model.';
 
 @Injectable()
 export class AppointmentPProvider {
-
   public appointmentList: any = [];
 
   private urlEndPoint: string = `${environment.urlEndPoint}/appointments`;
@@ -26,6 +25,10 @@ export class AppointmentPProvider {
 
   searchAvaiableAppointment(dateModel: Date): any {
     return this.http.get(`${this.urlEndPoint}/?date=${dateModel}`, { headers: this.httpHeaders });
+  }
+
+  updateAppointment(appointment: Appointment): any {
+    return this.http.put(`${this.urlEndPoint}`, appointment, { headers: this.httpHeaders });
   }
 
 }

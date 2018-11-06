@@ -1,6 +1,6 @@
 export class Pricelist {
-    id: String;
-    name: String;
+    id: number;
+    name: string;
     description: String;
     duration: String;
     price: String;

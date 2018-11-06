@@ -1,3 +1,4 @@
+import { CustomerAppointmentHistoryPage } from './../customer-appointment/history/customer-appointment-history';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, MenuController, NavParams } from 'ionic-angular';
 import { AppointmentPage } from './../appointment/appointment';
@@ -23,7 +24,8 @@ export class HomePage {
   loginPage: Page = LoginPage;
   servicesPage: Page = ServicesPage;
   appointmentPage: Page = AppointmentPage;
-  appintmentCustomerPage: Page = CustomerAppointmentPage;
+  appointmentCustomerPage: Page = CustomerAppointmentPage;
+  appointmentCustomerHistoryPage: Page = CustomerAppointmentHistoryPage;
   rootPage: Page = undefined;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -31,7 +33,7 @@ export class HomePage {
     if (userProvider.userLoged.isAdmin) {
       this.rootPage = this.employeePage;
     } else if (userProvider.userLoged.isCustomer) {
-      this.rootPage = this.appintmentCustomerPage;
+      this.rootPage = this.appointmentCustomerPage;
     } else if (userProvider.userLoged.isEmployee) {
       this.rootPage = this.employeePage;
     }

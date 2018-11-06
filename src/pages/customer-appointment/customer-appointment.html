@@ -45,7 +45,7 @@
         <div class="div-input">
           <ion-item>
             <ion-label>Servicio</ion-label>
-            <ion-select name="service" [(ngModel)]="serviceModel" [disabled]="genre == undefined" style="text-align: left; max-width: 100%"
+            <ion-select name="service" [(ngModel)]="serviceModel" [disabled]="genre == undefined && serviceList.length == 0" style="text-align: left; max-width: 100%"
               required>
               <ion-option *ngFor="let service of this.serviceList" [value]="service">{{service.name}}</ion-option>
             </ion-select>
@@ -55,8 +55,7 @@
         <ion-label>Fecha</ion-label>
         <div class="div-input">
           <ion-item>
-            <ion-datetime displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="this.dateModel" style="text-align: right; max-width: 100%"
-              required></ion-datetime>
+            <ion-datetime displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="this.dateModel" style="width: 100%; text-align: right;" required></ion-datetime>
           </ion-item>
         </div>
 
@@ -75,9 +74,10 @@
   <div *ngIf="showResult">
 
     <div *ngIf="(this.avaiableAppointmentList)?.length!=0">
-      <ion-card *ngFor="let appointment of this.avaiableAppointmentList">
-        <ion-card-content>
+      <ion-card #appointmentCard *ngFor="let appointment of this.avaiableAppointmentList">
+        <ion-card-content (click)="bookAppointment(appointment, appointmentCard)">
           <h1><b>Fecha: {{appointment.date | date: 'dd/MM/yyyy'}}</b></h1>
+          <h6><b><i>{{appointment.date | dateStringPipe }}</i></b></h6>
           <h2><b>{{appointment.initialHour == 0 ? '00' : appointment.initialHour}}:{{appointment.initialMinute == 0 ?
               '00' : appointment.initialMinute}} -
               {{appointment.finalHour == 0 ? '00' : appointment.finalHour}}:{{appointment.finalMinute == 0 ? '00' :
@@ -91,7 +91,7 @@
       </ion-card>
     </div>
 
-    <div *ngIf="(this.avaiableAppointmentList)?.length==0">
+    <div *ngIf="(this.avaiableAppointmentList)?.length==0 && this.loadingContent == false">
       <ion-card style="background: firebrick; padding: 10px">
         <div class="center card-title">
           <h2 style="color:white">NO HAY NINGUNA CITA DISPONIBLE</h2>

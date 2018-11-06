@@ -11,6 +11,10 @@ export const environment = {
   loading: 'Cargando...',
   incorrectcredentials: 'Usuario y/o contraseña incorrecto(s)',
   save: 'Guardar',
+  book: 'Reservar',
+  confirm: 'Confirmar',
+  days: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+  orange: "orange",
 
   //Employee
   successEmployeeCreated: 'Empleado creado con éxito',
@@ -36,5 +40,11 @@ export const environment = {
   successServiceRemoved: 'Servicio eliminado con éxito',
 
   //Appointments
-  successAppointmentGenerated: 'Citas generadas con éxito'
+  successAppointmentGenerated: 'Citas generadas con éxito',
+  generatingAppointments: 'Generando citas...',
+  searchingAvaiableAppointments: 'Buscando citas disponibles...',
+  titleBookAppointment: 'Confirmar cita',
+  confirmationBookAppointment: '¿Estás seguro que quieres reservar la cita?',
+  customerAppointmentHistoryTitle: "Historial de citas"
+
 };
