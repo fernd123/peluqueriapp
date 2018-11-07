@@ -13,75 +13,37 @@ import { environment } from '../../../environments/enviroment';
 })
 export class CustomerAppointmentHistoryPage {
 
-  title: string = environment.customerAppointmentHistoryTitle
-  avaiableAppointmentList: Appointment[] = [];
-  notes: any = [];
- 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl:LoadingController,
-    private alertCtrl: AlertController, private userProvider:UserProvider,
+  title: string = environment.customerAppointmentHistoryTitle;
+  loading: Loading;
+  loadingContent: boolean = true;
+  appointmentByCustomer: any = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController, private userProvider: UserProvider,
     public serviceProvider: ServicePProvider, public appointmentPProvider: AppointmentPProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CustomerMeetingPage');
+    console.log('ionViewDidLoad CustomerAppointmentHistoryPage');
   }
 
-  addNote(){
- 
-    let prompt = this.alertCtrl.create({
-        title: 'Add Note',
-        inputs: [{
-            name: 'title'
-        }],
-        buttons: [
-            {
-                text: 'Cancel'
-            },
-            {
-                text: 'Add',
-                handler: data => {
-                    this.notes.push(data);
-                }
-            }
-        ]
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CustomerAppointmentHistoryPage');
+    let self = this;
+    this.showLoading();
+    this.loadingContent = true;
+    this.appointmentPProvider.getAppointmentByCustomerId(this.userProvider.userLoged).subscribe(function (appointments) {
+      self.appointmentByCustomer = appointments;
+      self.loadingContent = false;
+      self.loading.dismiss();
     });
+  }
 
-    prompt.present();
-}
-
-editNote(note){
-
-    let prompt = this.alertCtrl.create({
-        title: 'Edit Note',
-        inputs: [{
-            name: 'title'
-        }],
-        buttons: [
-            {
-                text: 'Cancel'
-            },
-            {
-                text: 'Save',
-                handler: data => {
-                    let index = this.notes.indexOf(note);
-
-                    if(index > -1){
-                      this.notes[index] = data;
-                    }
-                }
-            }
-        ]
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: environment.loading
     });
+    this.loading.present();
+  }
 
-    prompt.present();      
-
-}
-
-deleteNote(note){
-    let index = this.notes.indexOf(note);
-    if(index > -1){
-        this.notes.splice(index, 1);
-    }
-}
- 
 }

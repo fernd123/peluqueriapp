@@ -87,6 +87,11 @@
               <h1 style="color:green">LIBRE</h1>
             </b>
           </div>
+          <div *ngIf="appointment.customerId != undefined">
+            <b>
+              <h1 style="color:firebrick">OCUPADO</h1>
+            </b>
+          </div>
         </ion-card-content>
       </ion-card>
     </div>

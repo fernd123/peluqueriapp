@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlEndPoint: 'https://peluqueriapp-mysql.herokuapp.com/api',
+  urlEndPoint: 'http://localhost:8080/api',
 
   //General
   ok: 'OK',

@@ -21,7 +21,6 @@ export class ServicesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public serviceProvider: ServicePProvider, private loadingCtrl: LoadingController) {
     this.showLoading();
-    this.loadContent = true;
   }
 
   ionViewDidLoad() {
@@ -31,10 +30,11 @@ export class ServicesPage {
   ionViewWillEnter() {
     console.log('ionViewWillEnter ServicesPage');
     let self = this;
-    this.serviceProvider.getServices().subscribe(function (company) {
-      self.serviceProvider.serviceList = company;
+    this.loadContent = true;
+    this.serviceProvider.getServices().subscribe(function (services) {
+      self.serviceProvider.serviceList = services;
       self.loading.dismiss();
-      this.loadContent = false;
+      self.loadContent = false;
     });
   }
 

@@ -7,7 +7,7 @@ import { environment } from './../../environments/enviroment';
 @Injectable()
 export class UserProvider { 
   
-  public userLoged: User = new User();
+  public userLoged: User;// = new User();
   public userSelected: User = new User();
   public employeeList: Observable<User[]> = null;
   

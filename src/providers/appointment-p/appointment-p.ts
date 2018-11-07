@@ -1,3 +1,4 @@
+import { User } from './../../models/user-model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Appointment } from '../../models/appointment-model';
@@ -28,7 +29,11 @@ export class AppointmentPProvider {
   }
 
   updateAppointment(appointment: Appointment): any {
-    return this.http.put(`${this.urlEndPoint}`, appointment, { headers: this.httpHeaders });
+    return this.http.put(`${this.urlEndPoint}/${appointment.id}`, appointment, { headers: this.httpHeaders });
+  }
+
+  getAppointmentByCustomerId(user: User){
+    return this.http.get(`${this.urlEndPoint}/customer?customerId=${user.id}`, { headers: this.httpHeaders });
   }
 
 }

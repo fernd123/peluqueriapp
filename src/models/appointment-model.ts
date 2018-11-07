@@ -2,14 +2,16 @@ export class Appointment {
     id: number;
     name: string;
     companyId: number;
-    serviceId: number;
-    employeeId: number;
-    pricelistIsd: number;
     customerId: number;
-    date: Date;
+    employeeId: number;
+    serviceId: number;
+    pricelistIsd: number;
+    date: string;
     initialHour: number;
     initialMinute: number;
     finalHour: number;
     finalMinute:number;
     observations: string;
+    isActive: boolean;
+    createAt: string;
 }
